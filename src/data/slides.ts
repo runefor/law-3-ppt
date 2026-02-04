@@ -539,7 +539,7 @@ export const slides: Slide[] = [
     layout: "screenshot-full",
     content: {
       screenshot: "시연 영상 또는 스크린샷",
-      description: "역할 선택 → AI 채팅 → 결과 확인 데모 흐름",
+      description: "",
       video: "/video/법률3팀_중간_시연영상.mp4",
     },
     speaker_notes:
@@ -847,7 +847,7 @@ export const slides: Slide[] = [
     content: {
       team: "Law-3 Team",
       event: "AI Camp 4기",
-      contact: "GitHub: —",
+      contact: "",
     },
     speaker_notes: "질의응답 시간. 감사 인사와 함께 팀 연락처 안내.",
   },
