@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
+import { assetPath } from "@/lib/assetPath";
 
 interface ImageLightboxProps {
   src: string;
@@ -33,7 +34,7 @@ export default function ImageLightbox({
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const imageList = images && images.length > 0 ? images : [src];
+  const imageList = (images && images.length > 0 ? images : [src]).map(assetPath);
   const isMulti = imageList.length > 1;
 
   const open = useCallback(() => {
