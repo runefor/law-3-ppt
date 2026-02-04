@@ -20,6 +20,14 @@ const CasePrecedentDemo = dynamic(
   () => import("@/components/demos/CasePrecedentDemo"),
   { ssr: false, loading: () => <DemoLoading /> }
 );
+const StoryboardDemo = dynamic(
+  () => import("@/components/demos/StoryboardDemo"),
+  { ssr: false, loading: () => <DemoLoading /> }
+);
+const SmallClaimsDemo = dynamic(
+  () => import("@/components/demos/SmallClaimsDemo"),
+  { ssr: false, loading: () => <DemoLoading /> }
+);
 
 function DemoLoading() {
   return (
@@ -34,6 +42,8 @@ const demoComponents: Record<string, React.ComponentType> = {
   "lawyer-stats": LawyerStatsDemo,
   "statute-hierarchy": StatuteHierarchyDemo,
   "case-precedent": CasePrecedentDemo,
+  "storyboard": StoryboardDemo,
+  "small-claims": SmallClaimsDemo,
 };
 
 const vp = { once: true, amount: 0.1 } as const;

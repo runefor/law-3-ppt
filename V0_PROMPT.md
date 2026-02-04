@@ -232,13 +232,13 @@ const slides = [
     layout: "feature-split",
     content: {
       features: [
-        "지역별 변호사 분포 히트맵 (8,500+ 변호사 데이터)",
+        "지역별 변호사 분포 히트맵 (17,326 변호사 데이터)",
         "개업추천지수 시뮬레이션 (경쟁 밀도, 수요 분석)",
         "전문분야별 블루오션 탐색",
       ],
       screenshot: "Biz Helper 히트맵 스크린샷", // {/* PLACEHOLDER */}
     },
-    speaker_notes: "변호사 대상 핵심 기능. 8,500+ 변호사 데이터로 히트맵을 만들고, 개업추천지수를 시뮬레이션. 어디에 어떤 분야로 개업하면 좋을지 데이터로 보여준다.",
+    speaker_notes: "변호사 대상 핵심 기능. 17,326 변호사 데이터로 히트맵을 만들고, 개업추천지수를 시뮬레이션. 어디에 어떤 분야로 개업하면 좋을지 데이터로 보여준다.",
   },
 
   // <!-- SLIDE_8: AI Client Intake -->
@@ -375,7 +375,7 @@ const slides = [
     layout: "flow-diagram",
     content: {
       flow: [
-        { stage: "수집", detail: "법령 API (5,841건), 판례 크롤링 (65,107건 예정), 변호사 데이터 (8,500+건)" },
+        { stage: "수집", detail: "법령 API (5,841건), 판례 크롤링 (65,107건 예정), 변호사 데이터 (17,326건)" },
         { stage: "전처리", detail: "청킹 전략 5가지 테스트 → B조합 선정" },
         { stage: "임베딩", detail: "KURE-v1 (로컬 임베딩) → 253,768 청크 생성" },
         { stage: "저장", detail: "LanceDB (벡터), PostgreSQL (메타데이터), Neo4j (관계)" },
@@ -396,7 +396,7 @@ const slides = [
         { value: 5841, label: "법령 데이터", suffix: "건" },
         { value: 65107, label: "판례 데이터 (예정)", suffix: "건" },
         { value: 253768, label: "임베딩 청크", suffix: "개" },
-        { value: 8500, label: "변호사 데이터", suffix: "+건" },
+        { value: 17326, label: "변호사 데이터", suffix: "건" },
       ],
     },
     speaker_notes: "프로젝트의 데이터 규모를 한눈에. 법령 5,841건이 적재 완료, 판례 65,107건은 예정. 임베딩 청크 253,768개가 LanceDB에 저장됨.",

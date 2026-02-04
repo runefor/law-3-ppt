@@ -22,6 +22,9 @@ import MinimalCenterSlide from "./slides/MinimalCenterSlide";
 import ServiceLandscapeSlide from "./slides/ServiceLandscapeSlide";
 import BurndownChartSlide from "./slides/BurndownChartSlide";
 import GanttMilestoneSlide from "./slides/GanttMilestoneSlide";
+import BarChartSlide from "./slides/BarChartSlide";
+import ChallengeLogSlide from "./slides/ChallengeLogSlide";
+import ChallengeSolutionSlide from "./slides/ChallengeSolutionSlide";
 
 const layoutComponents: Record<
   string,
@@ -46,6 +49,9 @@ const layoutComponents: Record<
   "minimal-center": MinimalCenterSlide,
   "burndown-chart": BurndownChartSlide,
   "gantt-milestone": GanttMilestoneSlide,
+  "bar-chart": BarChartSlide,
+  "challenge-log": ChallengeLogSlide,
+  "challenge-solution": ChallengeSolutionSlide,
 };
 
 const fullHeightLayouts = new Set(["hero-fullscreen", "minimal-center", "live-demo"]);

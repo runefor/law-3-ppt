@@ -17,7 +17,10 @@ export type SlideLayout =
   | "service-landscape"
   | "minimal-center"
   | "burndown-chart"
-  | "gantt-milestone";
+  | "gantt-milestone"
+  | "bar-chart"
+  | "challenge-log"
+  | "challenge-solution";
 
 export interface Slide {
   id: number;
@@ -193,7 +196,7 @@ export const slides: Slide[] = [
           {
             role: "변호사",
             steps: [
-              "Biz Helper",
+              "변호사 지도 기반 현황 파악",
               "히트맵 / 개업추천지수",
               "블루오션 탐색",
             ],
@@ -209,64 +212,82 @@ export const slides: Slide[] = [
   {
     id: 7,
     section: "솔루션",
-    title: "Biz Helper — 기회의 땅을 찾아서",
-    subtitle: "데이터 기반 개업 전략 도구",
+    title: "Biz Helper",
+    subtitle:
+      "변호사 시장을 데이터 기반으로 분석하여, 변호사가 실제 사업 전략과 업무 방향을 수립하는 데 활용할 수 있는 비즈니스 인텔리전스 도구",
     layout: "feature-split",
     content: {
       features: [
-        "지역별 변호사 분포 히트맵 (8,500+ 변호사 데이터)",
-        "개업추천지수 시뮬레이션 (경쟁 밀도, 수요 분석)",
-        "전문분야별 블루오션 탐색",
+        "지역별 변호사 현황 지도 시각화",
+        "추계 인구 데이터를 활용한 향후 변호사 밀도 변화 시각화",
+        "지역 × 전문분야 교차 분석 기반 변호사 현황 조회",
       ],
-      screenshot: "Biz Helper 히트맵 스크린샷",
+      screenshots: [
+        "/images/services/biz-helper.png",
+        "/images/services/biz-helper2.png",
+        "/images/services/biz-helper3.png",
+      ],
     },
     speaker_notes:
-      "변호사 대상 핵심 기능. 8,500+ 변호사 데이터로 히트맵을 만들고, 개업추천지수를 시뮬레이션. 어디에 어떤 분야로 개업하면 좋을지 데이터로 보여준다.",
+      "변호사 대상 핵심 기능. 지역별 변호사 현황 지도, 추계 인구 기반 밀도 변화 시각화, 지역×전문분야 교차 분석으로 비즈니스 인텔리전스 제공.",
   },
   {
     id: 8,
     section: "솔루션",
-    title: "AI Client Intake",
-    subtitle: "일반인의 목소리를 변호사의 언어로",
+    title: "변호사–일반인 범용 법률 서비스",
+    subtitle: "법률 검색부터 변호사 연결까지, 하나의 플랫폼에서",
     layout: "split-two-column",
     content: {
       left: {
-        heading: "일반인 경험",
+        heading: "일반인 대상",
         items: [
-          "AI 채팅으로 자연어 사건 상담",
-          "질문-답변 통해 사건 핵심 정리",
-          "관련 법령/판례 기반 초기 가이드",
+          "단순 질문만으로 법률 정보와 판례, 관련 법령을 쉽게 검색",
+          "법률 영역에 대한 진입 장벽을 낮춰, 법률 정보 접근성 개선",
         ],
       },
       right: {
-        heading: "변호사 경험",
+        heading: "변호사 대상",
         items: [
-          "정리된 사건 리포트 수신",
-          "법률 쟁점 자동 분류",
-          "준비된 고객과의 상담 → 수임 전환율 향상",
+          "쟁점 파악, 관련 판례 탐색, 근거 자료 확인 과정의 시간 단축",
+          "반복적인 업무 부담을 감소시켜 실질적인 사건 분석과 전략 수립에 집중 가능",
         ],
       },
     },
     speaker_notes:
-      "일반인은 AI와 대화하며 사건을 정리하고, 변호사는 정리된 리포트를 받아 효율적으로 상담. 양쪽 모두에게 가치를 제공하는 핵심 기능.",
+      "일반인에게는 법률 정보 접근성을 개선하고, 변호사에게는 업무 효율화를 제공하는 범용 법률 서비스 플랫폼.",
   },
   {
     id: 9,
     section: "솔루션",
-    title: "Legal Tech — 판례 검색",
-    subtitle: "RAG 기반 법률 지식 검색 시스템",
-    layout: "feature-split",
+    title: "Legal Tech — 종합 법률 검색 시스템",
+    subtitle: "법제처 국가법령정보센터 65개 데이터 · 20GB 통합 DB",
+    layout: "split-two-column",
     content: {
-      pipeline: [
-        "사용자 질의 → 쿼리 리라이팅",
-        "KURE-v1 임베딩 → LanceDB 벡터 검색",
-        "관련 법령/판례 리랭킹",
-        "GPT-4o-mini 기반 답변 생성",
-      ],
-      screenshot: "판례 검색 시연 예시",
+      left: {
+        heading: "핵심 기능",
+        style: "feature-cards",
+        items: [
+          "단일 검색 인터페이스에서 법령·판례·해석례 등 모든 법률 문서 동시 탐색",
+          "출처가 명확한 근거 기반 AI 답변 제공",
+          "원문 바로 확인 가능한 법률 검색",
+        ],
+      },
+      right: {
+        heading: "활용 데이터 범위 (65종)",
+        items: [
+          "법령 · 행정규칙 · 자치법규",
+          "판례 · 헌재결정례 · 12개 위원회 결정문",
+          "법령해석례 · 행정심판례 · 4개 특별행정심판",
+          "37개 중앙부처 1차 해석 · 감사원 사전컨설팅 의견서",
+          "조약 · 법령용어",
+          "공공학교 학칙 · 공단 규칙 · 공공기관 규칙",
+        ],
+      },
+      bottomQuote:
+        "반쪽짜리 법률 시스템이 아닌, 국가법령정보센터의 모든 법률 정보를 통합 분석하는 진짜 법률 전문가 AI",
     },
     speaker_notes:
-      "RAG 파이프라인의 4단계를 설명. 쿼리 리라이팅으로 질의 품질 향상, KURE-v1 로컬 임베딩으로 벡터 검색, 리랭킹 후 GPT-4o-mini로 답변 생성.",
+      "종합 법률 검색 시스템 소개. 법제처 국가법령정보센터의 65개 데이터(20GB)를 통합하여, 법령·판례·해석례 등 모든 법률 문서를 단일 인터페이스에서 검색. RAG + 리랭킹으로 출처 명확한 AI 답변 제공.",
   },
   {
     id: 10,
@@ -456,7 +477,7 @@ export const slides: Slide[] = [
         {
           stage: "수집",
           detail:
-            "법령 API (5,841건), 판례 크롤링 (65,107건 예정), 변호사 데이터 (8,500+건)",
+            "법령 API (5,841건), 판례 크롤링 (65,107건 예정), 변호사 데이터 (17,326건)",
         },
         {
           stage: "전처리",
@@ -481,17 +502,35 @@ export const slides: Slide[] = [
     id: 15,
     section: "데이터",
     title: "프로젝트 데이터 규모",
-    layout: "stats-countup",
+    layout: "bar-chart",
     content: {
-      stats: [
-        { value: 5841, label: "법령 데이터", suffix: "건" },
-        { value: 65107, label: "판례 데이터 (예정)", suffix: "건" },
-        { value: 253768, label: "임베딩 청크", suffix: "개" },
-        { value: 8500, label: "변호사 데이터", suffix: "+건" },
+      reflectedStats: [
+        { value: 5841, label: "법령 데이터", suffix: "건", status: "완료" },
+        { value: 65107, label: "판례 데이터", suffix: "건", status: "예정" },
+        { value: 253768, label: "임베딩 청크", suffix: "개", status: "완료" },
+        { value: 8500, label: "변호사 데이터", suffix: "+건", status: "완료" },
       ],
+      bars: [
+        { label: "자치법규", value: 158190 },
+        { label: "4개 특별행정심판", value: 152755 },
+        { label: "판례", value: 92068 },
+        { label: "12개 위원회 결정문", value: 61589 },
+        { label: "37개 중앙부처 1차 해석", value: 38863 },
+        { label: "법령용어", value: 36797 },
+        { label: "헌재결정례", value: 36781 },
+        { label: "행정심판례", value: 34258 },
+        { label: "행정규칙", value: 21622 },
+        { label: "법령해석례", value: 8597 },
+        { label: "법령 체계도", value: 5555 },
+        { label: "법령", value: 5548 },
+        { label: "학칙·공단", value: 5258 },
+        { label: "조약", value: 3589 },
+      ],
+      suffix: "건",
+      total: 661470,
     },
     speaker_notes:
-      "프로젝트의 데이터 규모를 한눈에. 법령 5,841건이 적재 완료, 판례 65,107건은 예정. 임베딩 청크 253,768개가 LanceDB에 저장됨.",
+      "법제처 국가법령정보센터 65종 데이터 총 661,470건 규모. 자치법규·특별행정심판이 가장 큰 비중.",
   },
   {
     id: 16,
@@ -501,6 +540,7 @@ export const slides: Slide[] = [
     content: {
       screenshot: "시연 영상 또는 스크린샷",
       description: "역할 선택 → AI 채팅 → 결과 확인 데모 흐름",
+      video: "/video/법률3팀_중간_시연영상.mp4",
     },
     speaker_notes:
       "서비스 시연. 역할 선택 화면에서 일반인을 선택하고 AI 채팅으로 사건을 상담하는 흐름을 보여줌.",
@@ -519,7 +559,7 @@ export const slides: Slide[] = [
     id: 18,
     section: "데모",
     title: "변호사 시장 분석",
-    subtitle: "8,500+ 변호사 데이터 기반 통계",
+    subtitle: "17,326명 변호사 데이터 기반 통계",
     layout: "live-demo",
     content: { demoKey: "lawyer-stats" },
     speaker_notes:
@@ -547,6 +587,26 @@ export const slides: Slide[] = [
   },
   {
     id: 21,
+    section: "데모",
+    title: "스토리보드",
+    subtitle: "사건의 흐름을 시각화하고 AI로 이미지와 영상을 생성",
+    layout: "live-demo",
+    content: { demoKey: "storyboard" },
+    speaker_notes:
+      "스토리보드 데모. 임대차보증금 분쟁 사건을 타임라인으로 시각화. 각 장면의 참여자와 증거를 한눈에 확인.",
+  },
+  {
+    id: 22,
+    section: "데모",
+    title: "소액소송 도우미",
+    subtitle: "4단계 위자드로 내용증명·지급명령·소액심판 서류 작성",
+    layout: "live-demo",
+    content: { demoKey: "small-claims" },
+    speaker_notes:
+      "소액소송 도우미 데모. 분쟁 유형 선택 → 사건 정보 입력 → 증거 체크 → 서류 생성까지 4단계 위자드.",
+  },
+  {
+    id: 23,
     section: "진행",
     title: "일정 및 비용",
     layout: "burndown-chart",
@@ -577,7 +637,7 @@ export const slides: Slide[] = [
       "프로젝트 기간 1/15~3/6(7주), 예산 15만원. OpenAI API 실사용 $8.14(선결제 $11, 잔여 크레딧 ~$1.86) + 나노바나나 480원 = 현재 12,364원(8%) 소진. W6-7 AWS EC2 2주 배포 시 약 8.7만원 추가, 총 ~10.2만원(68%) 전망.",
   },
   {
-    id: 22,
+    id: 24,
     section: "진행",
     title: "작업 진행 현황",
     layout: "progress-bars",
@@ -600,7 +660,7 @@ export const slides: Slide[] = [
       "완료된 작업 4건, 진행중 1건, 예정 4건. 데이터 수집과 임베딩 적재가 완료되어 RAG 기반이 마련됨. 다음은 리라이팅/리랭킹 테스트.",
   },
   {
-    id: 23,
+    id: 25,
     section: "계획",
     title: "전체 일정도",
     layout: "gantt-milestone",
@@ -659,7 +719,127 @@ export const slides: Slide[] = [
       "프로젝트 기간 1/15~3/6(7주). 데이터 수집 완료, 전처리 진행중. W4부터 RAG 고도화·UI 개발 병행, W6-7에 AWS EC2 2주 배포 및 통합 테스트.",
   },
   {
-    id: 24,
+    id: 26,
+    section: "계획",
+    title: "개발 과제 해결 로그",
+    subtitle: "중간발표까지 프로젝트를 진행하며 힘들었던 것들",
+    layout: "challenge-log",
+    content: {
+      entries: [
+        {
+          category: "인프라",
+          challenge: "임베딩 모델 구축",
+          detail: "pytorch version 문제, runpod 환경 첫 사용 등의 문제",
+          solution: "환경 구성 완료",
+          status: "resolved",
+        },
+        {
+          category: "비용",
+          challenge: "배포/개발 비용 예측",
+          detail: "개발 단계 비용 예측 실패",
+          solution: "배포 환경 비용 예측 성공",
+          status: "resolved",
+        },
+        {
+          category: "DB",
+          challenge: "벡터DB+RDB 비용 절감",
+          detail: "대용량 벡터 DB와 RDB 아키텍처 구상",
+          solution: "PostgreSQL + LanceDB + GraphDB 구조 실험중",
+          status: "unresolved",
+        },
+        {
+          category: "개발 프로세스",
+          challenge: "바이브 코딩 코드 리뷰",
+          detail: "코드를 모르고 기능만 동작하는 문제",
+          solution: "rules/skills로 동일 규칙 세팅",
+          status: "resolved",
+        },
+        {
+          category: "협업",
+          challenge: "git 협업 문제",
+          detail: "merge 시 꼬임이 자주 발생",
+          solution: "AI coding agent가 commit/merge 대행",
+          status: "resolved",
+        },
+        {
+          category: "데이터 전처리",
+          challenge: "법령 데이터 구조",
+          detail: "조/항/호/목 복잡한 JSON 구조",
+          solution: "일반인: 호·목 통합, 변호사: 목만 통합",
+          status: "resolved",
+        },
+        {
+          category: "데이터 전처리",
+          challenge: "판례 판시사항·판결요지 누락",
+          detail: "판시사항, 판결요지가 생략된 판례 다수",
+          solution: "LLM(gpt-4o-mini, solar-pro)으로 요약 생성",
+          status: "in-progress",
+          progress: "80%",
+        },
+        {
+          category: "데이터 전처리",
+          challenge: "법령·판례 내 이미지",
+          detail: "이미지가 포함된 데이터 존재",
+          solution: "이미지 제거로 범위 축소",
+          status: "resolved",
+        },
+      ],
+    },
+    speaker_notes:
+      "중간발표까지 직면한 8가지 과제. 6건 해결, 1건 진행중(80%), 1건 미해결.",
+  },
+  {
+    id: 27,
+    section: "계획",
+    title: "예상 과제 및 해결 방안",
+    layout: "challenge-solution",
+    content: {
+      pairs: [
+        {
+          challenge: {
+            icon: "🔧",
+            title: "데이터 전처리의 어려움",
+            description: "전체 데이터의 6%만 전처리 완료",
+          },
+          solution: {
+            title: "범위 축소 전략",
+            description:
+              "2주 안에 전처리가 완료되지 않는 데이터는 제외하여 범위 축소",
+            status: "resolved",
+          },
+        },
+        {
+          challenge: {
+            icon: "💾",
+            title: "임베딩 벡터 용량",
+            description: "로컬 임베딩 처리 시 컴퓨터 성능 요구",
+          },
+          solution: {
+            title: "해결 방안 고민 중",
+            description: "벡터 압축, 외부 GPU 서버 활용 등 검토 중",
+            status: "unresolved",
+          },
+        },
+        {
+          challenge: {
+            icon: "⚡",
+            title: "Backend/Frontend 성능",
+            description: "데이터 양이 많아 성능 요구치 높음",
+          },
+          solution: {
+            title: "최적화 + DB 설계",
+            description:
+              "Frontend·Backend 최적화 시도, DB 스키마 재설계로 해결",
+            status: "resolved",
+          },
+        },
+      ],
+    },
+    speaker_notes:
+      "프로젝트 진행 중 예상되는 3가지 주요 과제와 해결 방안. 전처리 범위 축소, 임베딩 용량 문제(미해결), 성능 최적화 전략.",
+  },
+  {
+    id: 28,
     section: "마무리",
     title: "Q & A",
     subtitle: "감사합니다",

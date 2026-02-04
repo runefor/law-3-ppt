@@ -6,20 +6,28 @@ import type {
   GraphNode,
   GraphLink,
   PrecedentItem,
+  TimelineItem,
+  DisputeTypeOption,
+  EvidenceItem,
 } from "@/types/demo";
 
 // ── 변호사 찾기 ──
 export const MOCK_LAWYERS: Lawyer[] = [
-  { id: 1, name: "김민수", office: "법무법인 정의", specialty: "민사", location: "서초구", lat: 37.4916, lng: 127.0073, rating: 4.8, experience: 15 },
-  { id: 2, name: "이지현", office: "이지현 법률사무소", specialty: "형사", location: "서초구", lat: 37.4850, lng: 127.0150, rating: 4.6, experience: 12 },
-  { id: 3, name: "박준영", office: "법무법인 한결", specialty: "가사", location: "강남구", lat: 37.5010, lng: 127.0390, rating: 4.9, experience: 20 },
-  { id: 4, name: "최서연", office: "최서연 법률사무소", specialty: "부동산", location: "서초구", lat: 37.4930, lng: 127.0250, rating: 4.7, experience: 8 },
-  { id: 5, name: "정현우", office: "법무법인 미래", specialty: "노동", location: "강남구", lat: 37.5080, lng: 127.0600, rating: 4.5, experience: 10 },
-  { id: 6, name: "한소희", office: "한소희 법률사무소", specialty: "행정", location: "서초구", lat: 37.4870, lng: 127.0100, rating: 4.4, experience: 7 },
-  { id: 7, name: "윤태호", office: "법무법인 신뢰", specialty: "조세", location: "종로구", lat: 37.5720, lng: 126.9790, rating: 4.8, experience: 18 },
-  { id: 8, name: "강예린", office: "강예린 법률사무소", specialty: "지식재산", location: "강남구", lat: 37.5130, lng: 127.0520, rating: 4.6, experience: 9 },
-  { id: 9, name: "오승현", office: "법무법인 공감", specialty: "의료", location: "서초구", lat: 37.4890, lng: 127.0200, rating: 4.7, experience: 14 },
-  { id: 10, name: "임하늘", office: "임하늘 법률사무소", specialty: "기업", location: "영등포구", lat: 37.5264, lng: 126.9010, rating: 4.5, experience: 11 },
+  { id: 1, name: "김민수", office: "법무법인 정의", specialty: "민사", category: "민사", location: "서초구", lat: 37.4916, lng: 127.0073, rating: 4.8, experience: 15 },
+  { id: 2, name: "이지현", office: "이지현 법률사무소", specialty: "형사", category: "형사", location: "서초구", lat: 37.4850, lng: 127.0150, rating: 4.6, experience: 12 },
+  { id: 3, name: "박준영", office: "법무법인 한결", specialty: "가사", category: "가사", location: "강남구", lat: 37.5010, lng: 127.0390, rating: 4.9, experience: 20 },
+  { id: 4, name: "최서연", office: "최서연 법률사무소", specialty: "부동산", category: "부동산", location: "서초구", lat: 37.4930, lng: 127.0250, rating: 4.7, experience: 8 },
+  { id: 5, name: "정현우", office: "법무법인 미래", specialty: "노동", category: "노동", location: "강남구", lat: 37.5080, lng: 127.0600, rating: 4.5, experience: 10 },
+  { id: 6, name: "한소희", office: "한소희 법률사무소", specialty: "행정", category: "행정", location: "서초구", lat: 37.4870, lng: 127.0100, rating: 4.4, experience: 7 },
+  { id: 7, name: "윤태호", office: "법무법인 신뢰", specialty: "조세", category: "조세", location: "종로구", lat: 37.5720, lng: 126.9790, rating: 4.8, experience: 18 },
+  { id: 8, name: "강예린", office: "강예린 법률사무소", specialty: "지식재산", category: "지식재산", location: "강남구", lat: 37.5130, lng: 127.0520, rating: 4.6, experience: 9 },
+  { id: 9, name: "오승현", office: "법무법인 공감", specialty: "의료", category: "의료", location: "서초구", lat: 37.4890, lng: 127.0200, rating: 4.7, experience: 14 },
+  { id: 10, name: "임하늘", office: "임하늘 법률사무소", specialty: "기업", category: "기업", location: "영등포구", lat: 37.5264, lng: 126.9010, rating: 4.5, experience: 11 },
+  { id: 11, name: "송지은", office: "법무법인 평화", specialty: "이혼·양육권", category: "가사", location: "송파구", lat: 37.5145, lng: 127.1059, rating: 4.7, experience: 13 },
+  { id: 12, name: "장태영", office: "장태영 법률사무소", specialty: "교통사고", category: "민사", location: "마포구", lat: 37.5536, lng: 126.9368, rating: 4.3, experience: 6 },
+  { id: 13, name: "배수진", office: "법무법인 도움", specialty: "상속", category: "가사", location: "용산구", lat: 37.5326, lng: 126.9906, rating: 4.8, experience: 16 },
+  { id: 14, name: "류현준", office: "류현준 법률사무소", specialty: "임대차", category: "부동산", location: "중구", lat: 37.5640, lng: 126.9975, rating: 4.5, experience: 9 },
+  { id: 15, name: "나윤서", office: "법무법인 새길", specialty: "의료과실", category: "의료", location: "동작구", lat: 37.5124, lng: 126.9393, rating: 4.6, experience: 11 },
 ];
 
 // ── 변호사 통계 ──
@@ -72,6 +80,90 @@ export const HEATMAP_DATA: HeatmapCell[] = [
   { region: "영등포구", category: "가사", count: 90 },
   { region: "영등포구", category: "부동산", count: 120 },
   { region: "영등포구", category: "노동", count: 70 },
+];
+
+// ── 변호사 시장 분석 (원본 UI 기반) ──
+export const REGION_RANKING = [
+  { rank: 1, region: "서울 서초구", count: 2860 },
+  { rank: 2, region: "서울 강남구", count: 1838 },
+  { rank: 3, region: "서울 종로구", count: 1064 },
+  { rank: 4, region: "서울 중구", count: 584 },
+  { rank: 5, region: "부산 연제구", count: 329 },
+  { rank: 6, region: "서울 영등포구", count: 314 },
+  { rank: 7, region: "경기 수원시", count: 238 },
+  { rank: 8, region: "대구 수성구", count: 208 },
+  { rank: 9, region: "서울 송파구", count: 186 },
+  { rank: 10, region: "대전 서구", count: 177 },
+  { rank: 11, region: "서울 마포구", count: 63 },
+  { rank: 12, region: "서울 양천구", count: 59 },
+  { rank: 13, region: "서울 용산구", count: 48 },
+  { rank: 14, region: "서울 구로구", count: 38 },
+  { rank: 15, region: "서울 강서구", count: 37 },
+];
+
+export const SIDO_LIST = [
+  "전체", "서울", "경기", "인천", "부산", "대구", "대전",
+  "광주", "울산", "세종", "강원", "충북", "충남",
+  "전북", "전남", "경북", "경남", "제주",
+];
+
+/** 시/도별 변호사 수 + SVG 좌표 (버블맵용) */
+export const MAP_BUBBLE_DATA = [
+  { sido: "서울", count: 5520, x: 98, y: 78 },
+  { sido: "경기", count: 412, x: 108, y: 100 },
+  { sido: "인천", count: 156, x: 72, y: 84 },
+  { sido: "부산", count: 329, x: 238, y: 268 },
+  { sido: "대구", count: 208, x: 210, y: 218 },
+  { sido: "대전", count: 177, x: 128, y: 178 },
+  { sido: "광주", count: 124, x: 88, y: 268 },
+  { sido: "울산", count: 82, x: 252, y: 244 },
+  { sido: "세종", count: 22, x: 115, y: 168 },
+  { sido: "강원", count: 64, x: 168, y: 62 },
+  { sido: "충북", count: 52, x: 148, y: 152 },
+  { sido: "충남", count: 74, x: 95, y: 168 },
+  { sido: "전북", count: 92, x: 108, y: 228 },
+  { sido: "전남", count: 66, x: 88, y: 298 },
+  { sido: "경북", count: 86, x: 218, y: 178 },
+  { sido: "경남", count: 108, x: 198, y: 268 },
+  { sido: "제주", count: 42, x: 78, y: 378 },
+];
+
+export const CROSS_TAB_CATEGORIES = [
+  "민사·가사", "형사", "부동산·건설", "노동·산재", "기업·상사",
+  "금융·자본시장", "조세·관세", "공정·행정", "지식재산(IP)",
+  "IT·미디어", "의료·바이오", "국제·해외",
+];
+
+export interface CrossTabRow {
+  region: string;
+  values: Record<string, number>;
+  total: number;
+}
+
+export const CROSS_TAB_DATA: CrossTabRow[] = [
+  { region: "서울 서초구", values: { "민사·가사": 187, "형사": 22, "부동산·건설": 104, "노동·산재": 19, "기업·상사": 16, "금융·자본시장": 62, "조세·관세": 15, "공정·행정": 32, "지식재산(IP)": 3, "IT·미디어": 3, "의료·바이오": 20, "국제·해외": 4 }, total: 487 },
+  { region: "서울 강남구", values: { "민사·가사": 73, "형사": 13, "부동산·건설": 61, "노동·산재": 22, "기업·상사": 16, "금융·자본시장": 25, "조세·관세": 24, "공정·행정": 20, "지식재산(IP)": 4, "IT·미디어": 6, "의료·바이오": 4, "국제·해외": 6 }, total: 274 },
+  { region: "서울 종로구", values: { "민사·가사": 8, "형사": 2, "부동산·건설": 11, "노동·산재": 2, "기업·상사": 10, "금융·자본시장": 5, "조세·관세": 7, "공정·행정": 10, "지식재산(IP)": 1, "IT·미디어": 4, "의료·바이오": 0, "국제·해외": 4 }, total: 64 },
+  { region: "서울 송파구", values: { "민사·가사": 31, "형사": 3, "부동산·건설": 6, "노동·산재": 1, "기업·상사": 1, "금융·자본시장": 3, "조세·관세": 2, "공정·행정": 1, "지식재산(IP)": 0, "IT·미디어": 0, "의료·바이오": 0, "국제·해외": 0 }, total: 48 },
+  { region: "서울 영등포구", values: { "민사·가사": 11, "형사": 1, "부동산·건설": 7, "노동·산재": 9, "기업·상사": 1, "금융·자본시장": 3, "조세·관세": 1, "공정·행정": 0, "지식재산(IP)": 0, "IT·미디어": 0, "의료·바이오": 1, "국제·해외": 0 }, total: 34 },
+  { region: "서울 중구", values: { "민사·가사": 3, "형사": 1, "부동산·건설": 4, "노동·산재": 3, "기업·상사": 1, "금융·자본시장": 4, "조세·관세": 3, "공정·행정": 5, "지식재산(IP)": 1, "IT·미디어": 0, "의료·바이오": 1, "국제·해외": 0 }, total: 26 },
+  { region: "서울 양천구", values: { "민사·가사": 7, "형사": 1, "부동산·건설": 3, "노동·산재": 0, "기업·상사": 0, "금융·자본시장": 0, "조세·관세": 0, "공정·행정": 0, "지식재산(IP)": 0, "IT·미디어": 0, "의료·바이오": 0, "국제·해외": 0 }, total: 11 },
+  { region: "서울 용산구", values: { "민사·가사": 0, "형사": 1, "부동산·건설": 0, "노동·산재": 0, "기업·상사": 1, "금융·자본시장": 1, "조세·관세": 2, "공정·행정": 3, "지식재산(IP)": 0, "IT·미디어": 0, "의료·바이오": 0, "국제·해외": 0 }, total: 8 },
+];
+
+export const SPECIALTY_DISTRIBUTION = [
+  { name: "민사·가사", count: 335, color: "#2997ff" },
+  { name: "부동산·건설", count: 198, color: "#30d158" },
+  { name: "형사", count: 47, color: "#ff9f0a" },
+  { name: "금융·자본시장", count: 108, color: "#ff453a" },
+  { name: "공정·행정", count: 71, color: "#bf5af2" },
+  { name: "노동·산재", count: 59, color: "#ff375f" },
+  { name: "기업·상사", count: 50, color: "#5ac8fa" },
+  { name: "조세·관세", count: 54, color: "#64d2ff" },
+  { name: "의료·바이오", count: 27, color: "#ff6482" },
+  { name: "IT·미디어", count: 13, color: "#2997ff" },
+  { name: "국제·해외", count: 15, color: "#30d158" },
+  { name: "지식재산(IP)", count: 9, color: "#bf5af2" },
 ];
 
 // ── 법령 체계도 ──
@@ -129,6 +221,96 @@ export const GRAPH_LINKS: GraphLink[] = [
   { source: "rental", target: "rental_exec", label: "위임" },
   { source: "labor_safety", target: "labor_safety_exec", label: "위임" },
 ];
+
+// ── 스토리보드 ──
+export const MOCK_TIMELINE: TimelineItem[] = [
+  {
+    id: "tl-1",
+    sceneNumber: 1,
+    date: "2024.01.15",
+    title: "임대차 계약 체결",
+    descriptionShort: "서울시 강남구 소재 아파트에 대해 보증금 5,000만원, 월세 50만원으로 2년간 임대차 계약 체결",
+    participants: [
+      { name: "김철수", role: "임차인" },
+      { name: "박영희", role: "임대인" },
+    ],
+    evidenceItems: ["임대차계약서", "계좌이체 확인서"],
+  },
+  {
+    id: "tl-2",
+    sceneNumber: 2,
+    date: "2024.07.10",
+    title: "보증금 미반환 통보",
+    descriptionShort: "계약 만료 후 임대인이 보증금 반환을 거부. 카카오톡으로 '수리비 공제 후 반환하겠다'는 일방적 통보",
+    participants: [
+      { name: "박영희", role: "임대인" },
+    ],
+    evidenceItems: ["카카오톡 대화 캡처", "문자 메시지"],
+  },
+  {
+    id: "tl-3",
+    sceneNumber: 3,
+    date: "2024.08.05",
+    title: "내용증명 발송",
+    descriptionShort: "법률 자문을 받아 임대인에게 보증금 전액 반환을 요구하는 내용증명 우편 발송",
+    participants: [
+      { name: "김철수", role: "임차인" },
+    ],
+    evidenceItems: ["내용증명 사본", "우편 발송 영수증"],
+  },
+  {
+    id: "tl-4",
+    sceneNumber: 4,
+    date: "2024.09.01",
+    title: "소액소송 제기",
+    descriptionShort: "보증금 5,000만원 반환을 청구하는 소액사건심판 청구서를 관할 법원에 접수",
+    participants: [
+      { name: "김철수", role: "임차인" },
+      { name: "서울중앙지방법원", role: "기관" },
+    ],
+    evidenceItems: ["소장", "증거 목록"],
+  },
+];
+
+// ── 소액소송 ──
+export const DISPUTE_TYPE_OPTIONS: DisputeTypeOption[] = [
+  { id: "goods", name: "물품대금", icon: "📦", description: "물품 구매 후 대금 미지급 분쟁" },
+  { id: "fraud", name: "중고거래 사기", icon: "🚨", description: "온라인 중고거래 사기 피해" },
+  { id: "deposit", name: "임대차 보증금", icon: "🏠", description: "임대차 보증금 미반환 분쟁" },
+  { id: "service", name: "용역대금", icon: "💼", description: "용역 수행 후 대금 미지급" },
+  { id: "wage", name: "임금 체불", icon: "💰", description: "근로 임금 미지급 분쟁" },
+];
+
+export const EVIDENCE_CHECKLIST: EvidenceItem[] = [
+  { id: "ev-1", label: "임대차 계약서 사본", required: true },
+  { id: "ev-2", label: "보증금 입금 확인서 (계좌이체 내역)", required: true },
+  { id: "ev-3", label: "내용증명 발송 사본", required: true },
+  { id: "ev-4", label: "전입세대 확인서", required: true },
+  { id: "ev-5", label: "카카오톡/문자 대화 캡처", required: false },
+  { id: "ev-6", label: "부동산 등기부등본", required: false },
+  { id: "ev-7", label: "사진 자료 (훼손 부위 등)", required: false },
+  { id: "ev-8", label: "감정평가서 또는 수리비 견적서", required: false },
+];
+
+export const MOCK_DOCUMENT_TEXT = `내 용 증 명
+
+수신: 박영희 (서울시 강남구 ○○로 123, 456호)
+발신: 김철수 (서울시 서초구 ○○대로 789, 101호)
+
+제목: 임대차보증금 반환 청구
+
+1. 본인은 귀하와 2024년 1월 15일 체결한 임대차계약에 따라 보증금 금 50,000,000원(오천만원)을 지급한 바 있습니다.
+
+2. 위 임대차계약은 2024년 7월 14일 기간 만료로 종료되었으나, 귀하는 현재까지 보증금을 반환하지 않고 있습니다.
+
+3. 이에 본 내용증명을 통해 보증금 전액의 반환을 정식으로 청구하오니, 본 서면 수령일로부터 7일 이내에 아래 계좌로 반환하여 주시기 바랍니다.
+
+반환 계좌: ○○은행 123-456-789012 (예금주: 김철수)
+
+4. 만일 위 기한 내에 반환이 이루어지지 않을 경우, 민사소송법에 따른 소액사건심판 청구 등 법적 절차를 진행할 것임을 알려드립니다.
+
+2024년 8월 5일
+발신인: 김철수 (인)`;
 
 // ── 판례 검색 ──
 export const MOCK_PRECEDENTS: PrecedentItem[] = [

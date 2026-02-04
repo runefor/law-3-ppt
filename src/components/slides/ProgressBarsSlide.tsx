@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { Slide } from "@/data/slides";
-
-const vp = { once: true, amount: 0.2 } as const;
+import { VP_DEFAULT, SPRING_SOFT } from "@/lib/animations";
 
 function DonutProgress({
   percent,
@@ -44,7 +43,13 @@ function DonutProgress({
         transform="rotate(-90 50 50)"
       />
       <defs>
-        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient
+          id="progressGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="0%"
+        >
           <stop offset="0%" stopColor="#2997ff" />
           <stop offset="100%" stopColor="#30d158" />
         </linearGradient>
@@ -82,24 +87,29 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
   ];
 
   const total = completed.length + inProgress.length + planned.length;
-  const progress = ((completed.length + inProgress.length * 0.5) / total) * 100;
+  const progress =
+    ((completed.length + inProgress.length * 0.5) / total) * 100;
   const completedPct = (completed.length / total) * 100;
   const inProgressPct = (inProgress.length / total) * 100;
   const plannedPct = (planned.length / total) * 100;
 
   return (
     <div ref={ref} className="flex flex-col justify-center py-4">
-      <h2 className="mb-4 text-4xl font-bold text-[#f5f5f7]">{slide.title}</h2>
+      <h2 className="mb-4 text-4xl font-bold text-[#f5f5f7]">
+        {slide.title}
+      </h2>
 
       {/* Top: Donut + Stacked Bar */}
       <div className="mb-6 flex items-center gap-8">
-        <DonutProgress percent={progress} inView={inView} />
+        {/* Donut with shimmer overlay after completion */}
+        <div className="shimmer-overlay rounded-full">
+          <DonutProgress percent={progress} inView={inView} />
+        </div>
         <div className="flex-1">
           <div className="mb-2 flex justify-between text-sm text-[#86868b]">
             <span>전체 진행률</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          {/* GitHub-style stacked bar */}
           <div className="flex h-3 overflow-hidden rounded-full">
             <motion.div
               initial={{ width: 0 }}
@@ -109,7 +119,9 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
             />
             <motion.div
               initial={{ width: 0 }}
-              animate={inView ? { width: `${inProgressPct}%` } : { width: 0 }}
+              animate={
+                inView ? { width: `${inProgressPct}%` } : { width: 0 }
+              }
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
               className="h-full bg-[#ff9f0a]"
             />
@@ -120,7 +132,6 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
               className="h-full bg-[#86868b]/40"
             />
           </div>
-          {/* Legend */}
           <div className="mt-3 flex gap-5 text-xs text-[#86868b]">
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#30d158]" />
@@ -138,14 +149,14 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
         </div>
       </div>
 
-      {/* Task cards */}
+      {/* Task cards with hover */}
       <div className="grid grid-cols-3 gap-8">
         {sections.map((section, si) => (
           <motion.div
             key={si}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
+            viewport={VP_DEFAULT}
             transition={{ duration: 0.4, delay: si * 0.12 }}
           >
             <h3
@@ -156,10 +167,11 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
             </h3>
             <ul className="flex flex-col gap-2">
               {section.items.map((item, i) => (
-                <li
+                <motion.li
                   key={i}
                   className="flex items-start gap-3 rounded-lg bg-[#1d1d1f] px-4 py-3 text-sm text-[#f5f5f7]"
                   style={{ borderLeft: `3px solid ${section.color}` }}
+                  whileHover={{ x: 4, transition: SPRING_SOFT }}
                 >
                   <span
                     className="mt-0.5 shrink-0 text-xs font-bold"
@@ -168,7 +180,7 @@ export default function ProgressBarsSlide({ slide }: { slide: Slide }) {
                     {section.icon}
                   </span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>

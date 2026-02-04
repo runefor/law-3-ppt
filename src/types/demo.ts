@@ -3,6 +3,7 @@ export interface Lawyer {
   name: string;
   office: string;
   specialty: string;
+  category: string;
   location: string;
   lat: number;
   lng: number;
@@ -54,4 +55,27 @@ export interface PrecedentItem {
   summary: string;
   content: string;
   aiAnswer: string;
+}
+
+export interface TimelineItem {
+  id: string;
+  sceneNumber: number;
+  date: string;
+  title: string;
+  descriptionShort: string;
+  participants: { name: string; role: string }[];
+  evidenceItems: string[];
+}
+
+export interface DisputeTypeOption {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+}
+
+export interface EvidenceItem {
+  id: string;
+  label: string;
+  required: boolean;
 }

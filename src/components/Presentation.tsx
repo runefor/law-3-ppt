@@ -18,6 +18,8 @@ import ProgressBarsSlide from "./slides/ProgressBarsSlide";
 import ScreenshotFullSlide from "./slides/ScreenshotFullSlide";
 import TimelineRoadmapSlide from "./slides/TimelineRoadmapSlide";
 import MinimalCenterSlide from "./slides/MinimalCenterSlide";
+import ChallengeLogSlide from "./slides/ChallengeLogSlide";
+import ChallengeSolutionSlide from "./slides/ChallengeSolutionSlide";
 
 const layoutComponents: Record<string, React.ComponentType<{ slide: typeof slides[0] }>> = {
   "hero-fullscreen": HeroSlide,
@@ -35,6 +37,8 @@ const layoutComponents: Record<string, React.ComponentType<{ slide: typeof slide
   "screenshot-full": ScreenshotFullSlide,
   "timeline-roadmap": TimelineRoadmapSlide,
   "minimal-center": MinimalCenterSlide,
+  "challenge-log": ChallengeLogSlide,
+  "challenge-solution": ChallengeSolutionSlide,
 };
 
 const slideVariants = {

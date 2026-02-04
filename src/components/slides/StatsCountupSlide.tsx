@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, animate, useInView } from "framer-motion";
 import type { Slide } from "@/data/slides";
+import { SPRING_SOFT } from "@/lib/animations";
 
 interface Stat {
   value: number;
@@ -10,7 +11,7 @@ interface Stat {
   suffix: string;
 }
 
-const barColors = ["#2997ff", "#bf5af2", "#30d158", "#ff9f0a"];
+const BAR_COLORS = ["#2997ff", "#bf5af2", "#30d158", "#ff9f0a"];
 
 function CountupNumber({
   value,
@@ -65,7 +66,12 @@ export default function StatsCountupSlide({ slide }: { slide: Slide }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="flex flex-col items-center rounded-2xl bg-[#1d1d1f] p-8 text-center"
+            whileHover={{
+              scale: 1.03,
+              y: -4,
+              transition: SPRING_SOFT,
+            }}
+            className="shimmer-overlay flex flex-col items-center rounded-2xl bg-[#1d1d1f] p-8 text-center"
           >
             <span className="mb-3 text-4xl font-bold text-[#2997ff]">
               <CountupNumber
@@ -86,7 +92,11 @@ export default function StatsCountupSlide({ slide }: { slide: Slide }) {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="mt-6 w-full max-w-4xl"
       >
-        <svg width="100%" height={stats.length * 48 + 16} viewBox={`0 0 600 ${stats.length * 48 + 16}`}>
+        <svg
+          width="100%"
+          height={stats.length * 48 + 16}
+          viewBox={`0 0 600 ${stats.length * 48 + 16}`}
+        >
           {stats.map((stat, i) => {
             const barWidth = (stat.value / maxValue) * 420;
             return (
@@ -113,10 +123,14 @@ export default function StatsCountupSlide({ slide }: { slide: Slide }) {
                   y="8"
                   height="24"
                   rx="4"
-                  fill={barColors[i % barColors.length]}
+                  fill={BAR_COLORS[i % BAR_COLORS.length]}
                   initial={{ width: 0 }}
                   animate={inView ? { width: barWidth } : { width: 0 }}
-                  transition={{ duration: 1.2, delay: 0.5 + i * 0.15, ease: "easeOut" }}
+                  transition={{
+                    duration: 1.2,
+                    delay: 0.5 + i * 0.15,
+                    ease: "easeOut",
+                  }}
                 />
                 <motion.text
                   x={170 + barWidth}
