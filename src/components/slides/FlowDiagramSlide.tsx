@@ -39,7 +39,8 @@ export default function FlowDiagramSlide({ slide }: { slide: Slide }) {
       >
         {/* SVG connector lines with drawing animation */}
         <svg
-          className="absolute left-0 top-6 z-0 w-full"
+          className="absolute left-0 z-0 w-full"
+          style={{ top: "-10px" }}
           viewBox={`0 0 ${svgWidth} 60`}
           fill="none"
           preserveAspectRatio="xMidYMid meet"
@@ -91,16 +92,19 @@ export default function FlowDiagramSlide({ slide }: { slide: Slide }) {
             />
           ))}
 
-          {/* Data flow particles — small dots moving along the line */}
+          {/* Data flow particles — chevrons moving along the line */}
           {Array.from({ length: DATA_PARTICLE_COUNT }).map((_, idx) => (
-            <motion.circle
+            <motion.text
               key={idx}
-              cy={30}
-              r={3}
+              y={30}
+              textAnchor="middle"
+              dominantBaseline="central"
               fill="white"
               fillOpacity={0.6}
+              fontSize={28}
+              fontWeight="bold"
               animate={{
-                cx: [stepSpacing / 2, svgWidth - stepSpacing / 2],
+                x: [stepSpacing / 2, svgWidth - stepSpacing / 2],
               }}
               transition={{
                 duration: 3,
@@ -108,7 +112,9 @@ export default function FlowDiagramSlide({ slide }: { slide: Slide }) {
                 ease: "linear",
                 delay: idx * 1,
               }}
-            />
+            >
+              ›
+            </motion.text>
           ))}
         </svg>
 
