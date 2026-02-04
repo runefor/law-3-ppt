@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { Slide } from "@/data/slides";
 import { VP_DEFAULT, SPRING_SOFT } from "@/lib/animations";
+import { assetPath } from "@/lib/assetPath";
 
 export default function ScreenshotFullSlide({ slide }: { slide: Slide }) {
   const { screenshot, description, video } = slide.content as {
@@ -42,7 +43,7 @@ export default function ScreenshotFullSlide({ slide }: { slide: Slide }) {
         <div className="flex h-[360px] items-center justify-center">
           {video ? (
             <video
-              src={video}
+              src={assetPath(video)}
               controls
               className="h-full w-full object-contain"
             />

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import ForceGraph2D from "./ForceGraphWrapper";
 import { GRAPH_NODES, GRAPH_LINKS } from "@/data/mockData";
 import { GRAPH_COLORS } from "@/data/constants";
+import { assetPath } from "@/lib/assetPath";
 
 interface NodeObj {
   id: string;
@@ -28,7 +29,7 @@ function getLogoImage(src: string): HTMLImageElement | null {
     return img.complete && img.naturalWidth > 0 ? img : null;
   }
   const img = new Image();
-  img.src = src;
+  img.src = assetPath(src);
   imageCache.set(src, img);
   return null;
 }
@@ -213,7 +214,7 @@ export default function StatuteHierarchyDemo() {
                   style={{ borderColor: item.color }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={item.logo} alt="" className="h-2.5 w-2.5 object-contain" />
+                  <img src={assetPath(item.logo)} alt="" className="h-2.5 w-2.5 object-contain" />
                 </span>
               ) : (
                 <span
