@@ -38,12 +38,12 @@ export const slides: Slide[] = [
     section: "인트로",
     title: "Law-3 AI 법률 플랫폼",
     subtitle:
-      "일반인에게는 상담의 문턱을 낮추고, 변호사에게는 준비된 고객과 데이터 기반 개업 전략을 제공하는 AI 법률 플랫폼",
+      "일반인에게는 상담의 문턱을 낮추고, 변호사에게는 고객과 개업 전략을 제공하는 AI 법률 플랫폼",
     layout: "hero-fullscreen",
     content: {
       team: "Law-3 Team",
       event: "AI Camp 4기 · 중간 발표",
-      date: "2026년 2월",
+      date: "2026년 2월 4일",
     },
     speaker_notes: "프로젝트 소개. AI와 변호사의 상생을 강조하며 시작.",
   },
