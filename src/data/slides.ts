@@ -477,7 +477,7 @@ export const slides: Slide[] = [
         {
           stage: "수집",
           detail:
-            "법령 API (5,841건), 판례 크롤링 (65,107건 예정), 변호사 데이터 (17,326건)",
+            "법령 API (5,841건), 판례 크롤링 (65,107건 완료), 변호사 데이터 (17,326건)",
         },
         {
           stage: "전처리",
@@ -506,9 +506,9 @@ export const slides: Slide[] = [
     content: {
       reflectedStats: [
         { value: 5841, label: "법령 데이터", suffix: "건", status: "완료" },
-        { value: 65107, label: "판례 데이터", suffix: "건", status: "예정" },
+        { value: 65107, label: "판례 데이터", suffix: "건", status: "완료" },
         { value: 253768, label: "임베딩 청크", suffix: "개", status: "완료" },
-        { value: 8500, label: "변호사 데이터", suffix: "+건", status: "완료" },
+        { value: 17326, label: "변호사 데이터", suffix: "건", status: "완료" },
       ],
       bars: [
         { label: "자치법규", value: 158190 },
