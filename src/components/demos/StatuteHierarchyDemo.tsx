@@ -59,25 +59,41 @@ export default function StatuteHierarchyDemo() {
     return () => ro.disconnect();
   }, []);
 
-  const graphData = useMemo(
-    () => ({
-      nodes: GRAPH_NODES.map((n) => ({ ...n })),
+  const graphData = useMemo(() => {
+    // 궤도별 노드를 균등 각도로 고정 배치
+    const orbitCounts: Record<number, number> = {};
+    const orbitIndices: Record<number, number> = {};
+    for (const n of GRAPH_NODES) {
+      orbitCounts[n.orbit] = (orbitCounts[n.orbit] || 0) + 1;
+      orbitIndices[n.orbit] = 0;
+    }
+
+    const nodes = GRAPH_NODES.map((n) => {
+      const radius = ORBIT_RADII[n.orbit] || 0;
+      const count = orbitCounts[n.orbit] || 1;
+      const idx = orbitIndices[n.orbit]++;
+      const angle = (2 * Math.PI * idx) / count - Math.PI / 2;
+      // 모든 노드를 fx/fy로 고정하여 항상 동일한 레이아웃 보장
+      return {
+        ...n,
+        fx: radius * Math.cos(angle),
+        fy: radius * Math.sin(angle),
+      };
+    });
+
+    return {
+      nodes,
       links: GRAPH_LINKS.map((l) => ({ ...l })),
-    }),
-    []
-  );
+    };
+  }, []);
 
   useEffect(() => {
     const fg = fgRef.current;
     if (!fg) return;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const d3 = (window as any).d3Force;
-    if (!d3) {
-      // Apply radial force via the engine
-      fg.d3Force("charge")?.strength(-120);
-      fg.d3Force("link")?.distance(80);
-    }
+    // 고정 배치이므로 불필요한 force 제거
+    fg.d3Force("charge", null);
+    fg.d3Force("center", null);
+    fg.d3Force("link", null);
   }, []);
 
   const paintNode = useCallback(
