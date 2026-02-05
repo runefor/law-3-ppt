@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, midterm]
   workflow_dispatch:
 
 permissions:
@@ -15,10 +15,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-midterm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: midterm
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -26,18 +28,127 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
+          NEXT_PUBLIC_BASE_PATH: /law-3-ppt/midterm
           NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
+          name: build-midterm
           path: out
 
-  deploy:
-    needs: build
+  build-final:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /law-3-ppt/final
+          NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-final
+          path: out
+
+  assemble-and-deploy:
+    needs: [build-midterm, build-final]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download midterm build
+        uses: actions/download-artifact@v4
+        with:
+          name: build-midterm
+          path: deploy/midterm
+
+      - name: Download final build
+        uses: actions/download-artifact@v4
+        with:
+          name: build-final
+          path: deploy/final
+
+      - name: Create root index.html
+        run: |
+          cat > deploy/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Law-3 PPT</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body {
+                font-family: system-ui, -apple-system, sans-serif;
+                background: #000;
+                color: #f5f5f7;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .container {
+                text-align: center;
+                padding: 40px;
+              }
+              h1 {
+                font-size: 48px;
+                font-weight: 700;
+                margin-bottom: 48px;
+              }
+              .links {
+                display: flex;
+                gap: 24px;
+                justify-content: center;
+                flex-wrap: wrap;
+              }
+              a {
+                display: block;
+                padding: 20px 40px;
+                border-radius: 14px;
+                background: #1d1d1f;
+                color: #f5f5f7;
+                text-decoration: none;
+                font-size: 20px;
+                font-weight: 600;
+                transition: background 0.2s, transform 0.2s;
+              }
+              a:hover {
+                background: #2997ff;
+                transform: scale(1.05);
+              }
+              .sub { font-size: 14px; color: #86868b; margin-top: 6px; font-weight: 400; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Law-3 PPT</h1>
+              <div class="links">
+                <a href="midterm/">
+                  중간 발표
+                  <div class="sub">Midterm Presentation</div>
+                </a>
+                <a href="final/">
+                  최종 발표
+                  <div class="sub">Final Presentation</div>
+                </a>
+              </div>
+            </div>
+          </body>
+          </html>
+          HTMLEOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

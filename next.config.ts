@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/law-3-ppt",
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "/law-3-ppt",
   images: {
     unoptimized: true,
   },

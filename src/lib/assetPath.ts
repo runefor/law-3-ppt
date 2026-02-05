@@ -1,4 +1,4 @@
-const BASE_PATH = "/law-3-ppt";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "/law-3-ppt";
 
 /**
  * 정적 asset 경로에 basePath 프리픽스를 추가합니다.
