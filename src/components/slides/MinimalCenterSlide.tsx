@@ -4,16 +4,22 @@ import { motion } from "framer-motion";
 import type { Slide } from "@/data/slides";
 import { AMBIENT_ORBS, VP_CENTER } from "@/lib/animations";
 
+interface CtaButton {
+  label: string;
+  variant: "primary" | "outline";
+}
+
 export default function MinimalCenterSlide({ slide }: { slide: Slide }) {
-  const { team, event, contact } = slide.content as {
+  const { team, event, contact, cta } = slide.content as {
     team: string;
     event: string;
     contact: string;
+    cta?: CtaButton[];
   };
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center">
-      {/* Ambient background orbs — circular drift */}
+      {/* Ambient background orbs */}
       {AMBIENT_ORBS.map((orb, i) => (
         <motion.div
           key={i}
@@ -56,18 +62,42 @@ export default function MinimalCenterSlide({ slide }: { slide: Slide }) {
           whileInView={{ opacity: 1 }}
           viewport={VP_CENTER}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative z-10 mb-10 text-2xl text-[#86868b]"
+          className="relative z-10 mb-8 text-2xl text-[#86868b]"
         >
           {slide.subtitle}
         </motion.p>
       )}
 
-      {/* Breathing glow team info */}
+      {/* CTA Buttons */}
+      {cta && cta.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VP_CENTER}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="relative z-10 mb-8 flex gap-3"
+        >
+          {cta.map((btn, i) => (
+            <button
+              key={i}
+              className={`rounded-full px-7 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5 ${
+                btn.variant === "primary"
+                  ? "bg-[#0071E3] text-white shadow-[0_0_40px_rgba(0,113,227,0.25)]"
+                  : "border border-white/15 bg-transparent text-[#f5f5f7]"
+              }`}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Team info */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={VP_CENTER}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
         className="relative z-10 flex flex-col items-center gap-1 text-sm text-[#86868b]"
       >
         <motion.span
@@ -88,17 +118,19 @@ export default function MinimalCenterSlide({ slide }: { slide: Slide }) {
         >
           {event}
         </motion.span>
-        <motion.span
-          animate={{ opacity: [0.5, 0.8, 0.5] }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        >
-          {contact}
-        </motion.span>
+        {contact && (
+          <motion.span
+            animate={{ opacity: [0.5, 0.8, 0.5] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          >
+            {contact}
+          </motion.span>
+        )}
       </motion.div>
     </div>
   );

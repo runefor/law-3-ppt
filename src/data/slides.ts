@@ -20,7 +20,27 @@ export type SlideLayout =
   | "gantt-milestone"
   | "bar-chart"
   | "challenge-log"
-  | "challenge-solution";
+  | "challenge-solution"
+  | "triptych-cards"
+  | "vision-flow"
+  | "ct-stepper"
+  | "data-pipeline"
+  | "role-platform"
+  | "dual-track"
+  | "video-showcase"
+  | "strategic-assets"
+  | "three-pillars"
+  | "rag-pipeline"
+  | "onnx-optimization"
+  | "recursive-cte"
+  | "summary-vision"
+  | "scale-proof"
+  | "cost-management"
+  | "team-intro"
+  | "retrospective"
+  | "strategy-radial";
+
+export type Audience = "investor" | "developer" | "both";
 
 export interface Slide {
   id: number;
@@ -30,6 +50,7 @@ export interface Slide {
   layout: SlideLayout;
   content: Record<string, unknown>;
   speaker_notes: string;
+  audience?: Audience;
 }
 
 export const slides: Slide[] = [

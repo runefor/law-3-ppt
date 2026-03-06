@@ -1,8 +1,18 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useAudience } from "@/contexts/AudienceContext";
 
-const navSections = [
+interface NavSection {
+  label: string;
+  slideId: number;
+}
+
+interface StickyNavProps {
+  sections?: NavSection[];
+}
+
+const DEFAULT_SECTIONS: NavSection[] = [
   { label: "배경", slideId: 3 },
   { label: "솔루션", slideId: 6 },
   { label: "아키텍처", slideId: 10 },
@@ -12,9 +22,11 @@ const navSections = [
   { label: "계획", slideId: 23 },
 ];
 
-export default function StickyNav() {
+export default function StickyNav({ sections }: StickyNavProps) {
+  const navSections = sections || DEFAULT_SECTIONS;
   const [visible, setVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const { audience, setAudience } = useAudience();
 
   const handleScroll = useCallback(() => {
     setVisible(window.scrollY > window.innerHeight * 0.5);
@@ -43,12 +55,12 @@ export default function StickyNav() {
           }
         }
       },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
     );
 
     sectionEls.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [navSections]);
 
   const scrollTo = (slideId: number) => {
     const el = document.getElementById(`slide-${slideId}`);
@@ -71,7 +83,7 @@ export default function StickyNav() {
           >
             Law-3
           </button>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             {navSections.map((section) => (
               <button
                 key={section.label}
@@ -85,6 +97,30 @@ export default function StickyNav() {
                 {section.label}
               </button>
             ))}
+
+            {/* Audience toggle */}
+            <div className="ml-4 flex rounded-full bg-white/10 p-1 backdrop-blur-lg border border-white/15">
+              <button
+                onClick={() => setAudience("investor")}
+                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                  audience === "investor"
+                    ? "bg-[#0071E3] text-white"
+                    : "text-[#86868b]"
+                }`}
+              >
+                투자자
+              </button>
+              <button
+                onClick={() => setAudience("developer")}
+                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                  audience === "developer"
+                    ? "bg-[#0071E3] text-white"
+                    : "text-[#86868b]"
+                }`}
+              >
+                개발자
+              </button>
+            </div>
           </div>
         </div>
       </div>
