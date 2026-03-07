@@ -73,17 +73,60 @@ export const finalSlides: Slide[] = [
           image: "/images/final/A02-1.png",
           title: "이해의 벽",
           description: "법률 용어와 절차가 일반인에게 너무 복잡하다",
+          modalTitle: "법률 용어 데이터베이스 현황",
+          modalSubtitle:
+            "AI가 법률 용어를 이해하고 설명하는 근거 데이터",
+          modalStats: [
+            { value: "72,700건", label: "총 법률 용어" },
+            { value: "37,366건", label: "MeCab 사전 등재" },
+            { value: "5종", label: "사전 유형" },
+          ],
+          modalSources: [
+            { name: "법령정의사전", count: "37,169건", desc: "법령에서 정의하는 공식 법률 용어" },
+            { name: "한영역추출", count: "18,200건", desc: "법령한영사전에서 역추출한 한글 용어" },
+            { name: "법령용어사전", count: "9,800건", desc: "법제처 표준 법률 용어" },
+            { name: "생활용어사전", count: "4,500건", desc: "일반인이 쉽게 이해할 수 있는 용어 풀이" },
+            { name: "법령한영사전", count: "3,031건", desc: "법률 용어 영문 번역 사전" },
+          ],
         },
         {
           image: "/images/final/A02-2.png",
           title: "근거의 부재",
           description:
             "AI 답변에 판례/법령 출처가 없으면 신뢰할 수 없다",
+          modalTitle: "RAG 데이터 현황",
+          modalSubtitle:
+            "AI 법률 상담의 근거가 되는 데이터 규모",
+          modalStats: [
+            { value: "579,498건", label: "Main RAG 총 데이터" },
+            { value: "21종", label: "데이터 타입" },
+            { value: "689건", label: "Assist RAG (뉴스)" },
+          ],
+          modalTopSources: [
+            { name: "자치법규", count: "154,289건" },
+            { name: "특별행정심판", count: "137,288건" },
+            { name: "판례", count: "92,055건" },
+            { name: "노동위원회 결정례", count: "40,714건" },
+            { name: "부처 유권해석", count: "37,455건" },
+            { name: "행정심판", count: "34,254건" },
+            { name: "헌법재판소 결정례", count: "31,718건" },
+            { name: "행정규칙", count: "17,092건" },
+            { name: "법령해석", count: "8,597건" },
+            { name: "공정거래 결정례", count: "7,728건" },
+          ],
         },
         {
           image: "/images/final/A02-3.png",
           title: "실행의 단절",
           description: "정보를 알아도 다음 행동으로 연결되지 않는다",
+          modalTitle: "실행의 단절 -- 주요 기능",
+          modalSubtitle:
+            "정보에서 행동으로 연결하는 핵심 기능들",
+          modalImages: [
+            "/images/final/feature-1.png",
+            "/images/final/feature-2.png",
+            "/images/final/feature-3.png",
+          ],
         },
       ],
       developerTitle: "LangGraph Multi-agent System",
@@ -162,24 +205,28 @@ export const finalSlides: Slide[] = [
           title: "분해",
           subtitle: "Decomposition",
           description: "법률 문제를 5가지 구성 요소로 분해",
+          modalImage: "/images/final/ct-1.png",
         },
         {
           icon: "/images/final/A03-ICON-2.png",
           title: "패턴 인식",
           subtitle: "Pattern Recognition",
           description: "반복되는 3가지 법률 패턴 인식",
+          modalImage: "/images/final/ct-2.png",
         },
         {
           icon: "/images/final/A03-ICON-3.png",
           title: "추상화",
           subtitle: "Abstraction",
           description: "공통 구조 추출 → CaseState 데이터 모델",
+          modalImage: "/images/final/ct-3.png",
         },
         {
           icon: "/images/final/A03-ICON-4.png",
           title: "알고리즘 설계",
           subtitle: "Algorithm Design",
           description: "AI 솔루션 매핑: 13개 모듈 설계",
+          modalImage: "/images/final/ct-4.png",
         },
       ],
       developerTitle: "Legal-Specific Tokenizing",
@@ -288,6 +335,279 @@ export const finalSlides: Slide[] = [
     audience: "investor",
     content: {
       image: "/images/final/A04_ROLE_SPLIT_DIAGRAM.png",
+      roleModals: {
+        "일반인": {
+          groups: [
+            {
+              label: "문제 해결",
+              icon: "🔧",
+              services: [
+                {
+                  name: "주변 변호사 찾기",
+                  icon: "📍",
+                  tagline: "내 주변 변호사를 지도에서 바로 찾으세요",
+                  target: "법률 문제가 생긴 일반인",
+                  features: [
+                    "GPS 기반 자동 위치 감지 -- 반경 500m~10km 선택",
+                    "카카오맵 연동 -- 마커 클릭 시 사무소 상세 정보",
+                    "12대 전문분야 필터 -- 민사·가사, 형사, 부동산 등",
+                    "AI 챗봇 연동 -- 자연어 입력 시 자동 검색",
+                  ],
+                  stats: [
+                    { value: "17,326", label: "등록 변호사" },
+                    { value: "12", label: "전문분야" },
+                    { value: "25", label: "서울 구 지원" },
+                  ],
+                },
+                {
+                  name: "소액 소송 도우미",
+                  icon: "⚖️",
+                  tagline: "변호사 없이도 소액 분쟁 서류를 AI가 작성",
+                  target: "소액 분쟁 당사자",
+                  features: [
+                    "4단계 위자드 -- 분쟁유형 선택 → 정보 입력 → AI 서류 생성 → 접수 안내",
+                    "5대 분쟁유형 지원 -- 임금체불, 보증금, 매매대금, 손해배상, 대여금",
+                    "AI 서류 자동 작성 -- 내용증명, 지급명령 신청서, 소장",
+                    "접수 가이드 -- 전자소송(e-Court) 접수 방법 안내",
+                  ],
+                  stats: [
+                    { value: "4단계", label: "위자드 절차" },
+                    { value: "5가지", label: "분쟁 유형" },
+                    { value: "3종", label: "서류 자동 생성" },
+                  ],
+                },
+                {
+                  name: "모의 법정",
+                  icon: "🏛️",
+                  tagline: "픽셀아트 법정에서 AI와 실제처럼 재판을 체험",
+                  target: "재판 과정이 궁금한 일반인",
+                  features: [
+                    "Phaser.js 픽셀아트 법정 -- 대법원 로비 → 법정 입장 → 재판 진행",
+                    "AI 에이전트 3인 -- 판사, 검사, 상대편 변호사",
+                    "6단계 재판 -- 모두진술 → 증거조사 → 증인심문 → 변론 → 최종변론 → 판결",
+                    "데모 시나리오 2종 -- 형사 사기, 민사 손해배상",
+                  ],
+                  stats: [
+                    { value: "6단계", label: "재판 절차" },
+                    { value: "3인", label: "AI 에이전트" },
+                    { value: "8가지", label: "감정 표현" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "정보 찾기",
+              icon: "🔍",
+              services: [
+                {
+                  name: "판례 검색",
+                  icon: "📚",
+                  tagline: "AI가 65만 건의 판례에서 내 사건에 맞는 판례를 탐색",
+                  target: "법적 분쟁에 처한 일반인",
+                  features: [
+                    "하이브리드 RAG -- BM25 키워드 + 벡터 의미 검색 동시 수행",
+                    "656,532건 법률 청크 -- 판례·법령 통합 벡터 DB",
+                    "AI 판례 요약 -- 핵심 쟁점, 판결 요지, 적용 법조 자동 추출",
+                    "SSE 스트리밍 답변 -- AI가 실시간으로 분석 결과 제공",
+                  ],
+                  stats: [
+                    { value: "656K", label: "법률 청크" },
+                    { value: "21", label: "데이터 타입" },
+                    { value: "SSE", label: "실시간 응답" },
+                  ],
+                },
+                {
+                  name: "법률 뉴스",
+                  icon: "📰",
+                  tagline: "최신 법률 뉴스를 AI가 수집·분석·요약",
+                  target: "법률 동향에 관심 있는 일반인",
+                  features: [
+                    "매일 오전 6시 자동 수집 -- 최신 법률 뉴스를 빠짐없이 수집·정리",
+                    "AI 다면 요약 -- 핵심, 법적 영향, 실무 시사점 다각도 분석",
+                    "하이브리드 검색 -- 키워드 + AI 의미 검색으로 관련 뉴스 탐색",
+                    "차트 시각화 -- 주제별·시기별 뉴스 트렌드 도넛·바 차트",
+                  ],
+                  stats: [
+                    { value: "매일 6시", label: "자동 수집" },
+                    { value: "2개", label: "뉴스 소스" },
+                    { value: "AI", label: "다면 요약" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "사건 정리",
+              icon: "📂",
+              services: [
+                {
+                  name: "스토리보드",
+                  icon: "🎬",
+                  tagline: "증거 자료를 업로드하면 AI가 사건 타임라인을 자동 구성",
+                  target: "사건 경위를 정리하고 싶은 일반인",
+                  features: [
+                    "드래그앤드롭 증거 업로드 -- 문서, 사진, 녹취록 한 번에 분석",
+                    "간트차트 시각화 -- vis-timeline 기반 사건 흐름 한눈에 파악",
+                    "AI 자동 분석 -- 증거에서 날짜, 사건, 인물을 자동 추출",
+                    "증분 병합 모드 -- 새 증거 추가 시 기존 타임라인과 자동 통합",
+                  ],
+                  stats: [
+                    { value: "배치", label: "다중 파일 분석" },
+                    { value: "간트", label: "차트 시각화" },
+                    { value: "SSE", label: "실시간 진행률" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        "변호사": {
+          groups: [
+            {
+              label: "인사이트",
+              icon: "📊",
+              services: [
+                {
+                  name: "변호사 통계",
+                  icon: "📊",
+                  tagline: "전국 변호사 분포와 수요를 데이터로 분석",
+                  target: "개업·이전을 계획하는 변호사",
+                  features: [
+                    "TopoJSON 시군구 지도 -- 전국 253개 시군구별 분포 시각화",
+                    "4가지 분석 뷰 -- 변호사 수, 인구 대비 밀도, 미래 예측, 사건 수",
+                    "미래 예측 -- 2030/2035/2040 변호사 수 증가 추이 시뮬레이션",
+                    "지역×전문분야 히트맵 -- 분야별 경쟁 강도 교차 분석",
+                  ],
+                  stats: [
+                    { value: "253", label: "시군구 분석" },
+                    { value: "4가지", label: "분석 뷰 모드" },
+                    { value: "2040", label: "미래 예측" },
+                  ],
+                },
+                {
+                  name: "콘텐츠 마케팅",
+                  icon: "📹",
+                  tagline: "AI가 법률 트렌드를 분석하고 유튜브 대본까지 생성",
+                  target: "온라인 마케팅을 강화하려는 변호사",
+                  features: [
+                    "페르소나 분석 -- 타겟 고객층의 관심사·고민·검색 패턴 분석",
+                    "5대 커뮤니티 키워드 수집 -- 네이버, 클리앙, 뽐뿌, 디시, 더쿠",
+                    "AI 유튜브 대본 -- 트렌드 기반 법률 콘텐츠 스크립트 자동 생성",
+                    "AI 웹툰 생성 -- 법률 교육용 일러스트·만화 자동 제작",
+                  ],
+                  stats: [
+                    { value: "5개", label: "커뮤니티 분석" },
+                    { value: "AI", label: "대본 자동 생성" },
+                    { value: "웹툰", label: "AI 생성" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "리서치",
+              icon: "🔍",
+              services: [
+                {
+                  name: "판례 검색",
+                  icon: "📚",
+                  tagline: "65만 건 판례를 AI가 분석하여 변론 전략의 근거 제공",
+                  target: "소송 준비 중인 변호사",
+                  features: [
+                    "하이브리드 RAG -- BM25 키워드 + 벡터 의미 검색 동시 수행",
+                    "AI 전문 분석 -- 쟁점별 판결 논리, 적용 법조, 손해배상 산정 기준",
+                    "인용 관계 탐색 -- 판례 간 인용·피인용 관계 그래프 분석",
+                    "워크스페이스 연동 -- 분석 결과를 사건별로 저장·관리",
+                  ],
+                  stats: [
+                    { value: "656K", label: "법률 청크" },
+                    { value: "Hybrid", label: "RAG 검색" },
+                    { value: "SSE", label: "실시간 분석" },
+                  ],
+                },
+                {
+                  name: "법령 체계도",
+                  icon: "🔗",
+                  tagline: "법령 간 상하위·인용 관계를 그래프로 시각화",
+                  target: "법령 체계를 파악해야 하는 법조인",
+                  features: [
+                    "D3 Force-Directed 그래프 -- 법령 간 관계를 인터랙티브 노드로 시각화",
+                    "법령 계급 시각화 -- 헌법 → 법률 → 시행령 → 시행규칙 계층 구조",
+                    "인용 관계 추적 -- 법령 간 참조·인용·피인용 관계 탐색",
+                    "법령 유형 필터 -- 법률, 시행령, 시행규칙, 조례 유형별 필터링",
+                  ],
+                  stats: [
+                    { value: "D3", label: "그래프 엔진" },
+                    { value: "계급", label: "법령 체계" },
+                    { value: "CTE", label: "그래프 쿼리" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "사건 검토",
+              icon: "📋",
+              services: [
+                {
+                  name: "사건 워크스페이스",
+                  icon: "💼",
+                  tagline: "모든 사건의 대화, 태그, 타임라인을 한 곳에서 관리",
+                  target: "다수 사건을 관리하는 변호사",
+                  features: [
+                    "사건 CRUD -- 사건 생성·조회·수정·삭제, 상태별 필터링",
+                    "자동 태깅 -- AI가 대화 내용에서 법적 이슈·키워드 자동 추출",
+                    "타임라인 재구성 -- AI가 대화 기록에서 사건 경위 자동 정리",
+                    "4탭 대시보드 -- 요약, 태그, 타임라인, 대화 이력 통합 뷰",
+                  ],
+                  stats: [
+                    { value: "4탭", label: "통합 대시보드" },
+                    { value: "AI", label: "자동 태깅" },
+                    { value: "자동", label: "타임라인 생성" },
+                  ],
+                },
+                {
+                  name: "모의 법정",
+                  icon: "🏛️",
+                  tagline: "AI 판사·검사·변호사와 실전처럼 모의재판 연습",
+                  target: "변론 스킬을 향상하려는 변호사",
+                  features: [
+                    "Phaser.js 픽셀아트 법정 -- 몰입감 있는 게임형 재판 시뮬레이션",
+                    "AI 멀티 에이전트 -- 판사, 검사, 변호사가 실제 법정 절차로 대응",
+                    "6단계 재판 절차 -- 모두진술부터 판결 선고까지 완전한 재판 흐름",
+                    "RAG 연동 -- 재판 중 관련 판례·법령을 실시간 검색·제출",
+                  ],
+                  stats: [
+                    { value: "6단계", label: "재판 절차" },
+                    { value: "3인", label: "AI 에이전트" },
+                    { value: "RAG", label: "판례 연동" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "학습",
+              icon: "📚",
+              services: [
+                {
+                  name: "로스쿨 학습",
+                  icon: "📖",
+                  tagline: "AI 튜터가 판례·법령 기반 맞춤형 법학 학습 지원",
+                  target: "로스쿨 학생, 사법시험 준비생",
+                  features: [
+                    "AI 법학 튜터 -- RAG 기반으로 판례·법령을 근거로 설명",
+                    "자동 퀴즈 생성 -- 학습 내용 기반 OX, 사례형 문제 자동 출제",
+                    "판례 분석 연습 -- 실제 판례를 읽고 쟁점·결론 분석 훈련",
+                    "과목별 학습 -- 민법, 형법, 헌법, 행정법, 상법 등 체계적 학습",
+                  ],
+                  stats: [
+                    { value: "RAG", label: "AI 튜터" },
+                    { value: "자동", label: "퀴즈 생성" },
+                    { value: "과목별", label: "맞춤 학습" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
       roles: [
         {
           icon: "👤",
@@ -440,6 +760,7 @@ export const finalSlides: Slide[] = [
     layout: "video-showcase",
     audience: "both",
     content: {
+      demoVideo: "/video/법률3팀_최종_시연영상.mp4",
       categories: [
         {
           label: "일반인",
@@ -575,21 +896,45 @@ export const finalSlides: Slide[] = [
           icon: "🔄",
           title: "최신성",
           subtitle: "멈추지 않는 지식 엔진",
+          modalService: "법률 뉴스",
+          modalFeature: "Daily News RAG",
+          modalDesc:
+            "법제처의 정적인 데이터 한계를 극복합니다. 매일 쏟아지는 법률 뉴스와 판례 동향을 매일 데이터베이스에 적재하여 '어제의 법조계'를 답변에 즉시 반영합니다.",
+          modalHighlight:
+            "정보의 시차를 없앤 신뢰도 1위의 데이터 주권 확보",
         },
         {
           icon: "📍",
           title: "수익성",
           subtitle: "데이터 기반 개업 전략",
+          modalService: "변호사 통계",
+          modalFeature: "Business Intelligence",
+          modalDesc:
+            "전국 행정구별 변호사 밀도 및 재판 접수 통계 분석. 변호사에게 '성공 확률이 가장 높은 개업지'를 데이터로 제안하는 국내 유일의 비즈니스 컨설팅 기능을 제공합니다.",
+          modalHighlight:
+            "유료 전환율이 가장 높은 변호사 타겟 킬러 서비스",
         },
         {
           icon: "🎮",
           title: "독창성",
           subtitle: "2D 픽셀 모의법정",
+          modalService: "모의 법정",
+          modalFeature: "Gamification",
+          modalDesc:
+            "세계 최초 2D 픽셀 게임 방식의 재판 시뮬레이터. 딱딱한 법리 검토를 즐거운 리허설로 전환. 변호사는 승소 전략을 짜고, 일반인은 법을 게임처럼 경험합니다.",
+          modalHighlight:
+            "시장에 없던 신개념 기능으로 폭발적인 사용자 체류 시간과 바이럴 확보",
         },
         {
           icon: "♾️",
           title: "연속성",
           subtitle: "10년의 기록, 1초의 복기",
+          modalService: "사건 워크스페이스",
+          modalFeature: "Case Workspace",
+          modalDesc:
+            "사건별/의뢰인별 10년 장기 데이터 보존 시스템. 대화 맥락이 단절되지 않는 클라우드 기반 워크스페이스를 통해 10년이 지나도 AI가 사건의 모든 디테일을 기억합니다.",
+          modalHighlight:
+            "사용 기간이 길어질수록 이탈이 불가능해지는 강력한 '락인(Lock-in)' 효과",
         },
       ],
       costOptimization: [
