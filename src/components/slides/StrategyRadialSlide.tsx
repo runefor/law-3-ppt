@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { Slide } from "@/data/slides";
 import { VP_DEFAULT, staggerContainer, fadeUpItem, SPRING_BOUNCE } from "@/lib/animations";
+import TypewriterText from "@/components/TypewriterText";
 
 interface Target {
   icon: string;
@@ -35,7 +36,7 @@ export default function StrategyRadialSlide({ slide }: { slide: Slide }) {
           viewport={VP_DEFAULT}
           className="mb-8 max-w-3xl text-center text-sm text-[#86868b]"
         >
-          {slide.subtitle}
+          <TypewriterText text={slide.subtitle} speed={35} delay={300} />
         </motion.p>
       )}
 

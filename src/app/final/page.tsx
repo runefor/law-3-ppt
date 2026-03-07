@@ -7,7 +7,7 @@ const FINAL_NAV_SECTIONS = [
   { label: "데모", slideId: 8 },
   { label: "기술", slideId: 9 },
   { label: "데이터", slideId: 15 },
-  { label: "팀", slideId: 16 },
+  { label: "팀", slideId: 17 },
   { label: "전략", slideId: 19 },
 ];
 

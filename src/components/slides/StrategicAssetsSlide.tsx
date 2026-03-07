@@ -1,14 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Slide } from "@/data/slides";
 import { useAudience } from "@/contexts/AudienceContext";
+import SlideModal from "./SlideModal";
 import { VP_DEFAULT, staggerContainer, fadeUpItem, SPRING_BOUNCE } from "@/lib/animations";
+import TypewriterText from "@/components/TypewriterText";
 
 interface Asset {
   icon: string;
   title: string;
   subtitle: string;
+  modalService?: string;
+  modalFeature?: string;
+  modalDesc?: string;
+  modalHighlight?: string;
 }
 
 interface CostRow {
@@ -27,6 +34,8 @@ export default function StrategicAssetsSlide({ slide }: { slide: Slide }) {
     assets: Asset[];
     costOptimization: CostRow[];
   };
+
+  const [selectedAsset, setSelectedAsset] = useState<{ asset: Asset; colorIndex: number } | null>(null);
 
   return (
     <div className="flex flex-col items-center py-4">
@@ -50,49 +59,106 @@ export default function StrategicAssetsSlide({ slide }: { slide: Slide }) {
       )}
 
       {audience === "investor" ? (
-        <motion.div
-          variants={staggerContainer(0.12)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VP_DEFAULT}
-          className="flex flex-col items-center gap-6 max-w-4xl"
-        >
-          <motion.p
-            variants={fadeUpItem}
-            className="text-center text-base italic text-[#6AE4FF]"
+        <>
+          <motion.div
+            variants={staggerContainer(0.12)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VP_DEFAULT}
+            className="flex flex-col items-center gap-6 max-w-4xl"
           >
-            {content.slogan}
-          </motion.p>
+            <motion.p
+              variants={fadeUpItem}
+              className="text-center text-base italic text-[#6AE4FF]"
+            >
+              <TypewriterText text={content.slogan} speed={40} delay={400} />
+            </motion.p>
 
-          <div className="grid grid-cols-4 gap-4 w-full">
-            {content.assets.map((asset, i) => (
-              <motion.div
-                key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: SPRING_BOUNCE },
-                }}
-                whileHover={{ y: -4, borderColor: `${ACCENT_COLORS[i]}50` }}
-                className="flex flex-col items-center rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 p-6 text-center"
-              >
-                <motion.span
-                  className="mb-3 text-4xl"
-                  animate={{ y: [0, -4, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+            <div className="grid grid-cols-4 gap-4 w-full">
+              {content.assets.map((asset, i) => (
+                <motion.div
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: SPRING_BOUNCE },
+                  }}
+                  whileHover={{ y: -4, borderColor: `${ACCENT_COLORS[i]}50` }}
+                  onClick={() => setSelectedAsset({ asset, colorIndex: i })}
+                  className="flex cursor-pointer flex-col items-center rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 p-6 text-center transition-colors hover:border-white/20"
                 >
-                  {asset.icon}
-                </motion.span>
-                <h3
-                  className="mb-1 text-lg font-bold"
-                  style={{ color: ACCENT_COLORS[i] }}
-                >
-                  {asset.title}
-                </h3>
-                <p className="text-xs text-[#86868b]">{asset.subtitle}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  <motion.span
+                    className="mb-3 text-4xl"
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                  >
+                    {asset.icon}
+                  </motion.span>
+                  <h3
+                    className="mb-1 text-lg font-bold"
+                    style={{ color: ACCENT_COLORS[i] }}
+                  >
+                    {asset.title}
+                  </h3>
+                  <p className="text-xs text-[#86868b]">{asset.subtitle}</p>
+                  <span className="mt-3 text-[10px] text-[#6AE4FF]">
+                    자세히 보기 →
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <SlideModal
+            isOpen={!!selectedAsset}
+            onClose={() => setSelectedAsset(null)}
+            title={selectedAsset ? `${selectedAsset.asset.icon} ${selectedAsset.asset.title}` : undefined}
+          >
+            {selectedAsset && (
+              <div className="flex flex-col gap-5">
+                <p className="text-base font-semibold text-[#f5f5f7]">
+                  {selectedAsset.asset.subtitle}
+                </p>
+
+                <div className="rounded-xl bg-white/5 border border-white/10 p-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <span
+                      className="rounded-full px-2.5 py-0.5 text-xs font-bold"
+                      style={{
+                        background: `${ACCENT_COLORS[selectedAsset.colorIndex]}20`,
+                        color: ACCENT_COLORS[selectedAsset.colorIndex],
+                      }}
+                    >
+                      {selectedAsset.asset.modalFeature}
+                    </span>
+                    <span className="text-xs text-[#86868b]">
+                      → {selectedAsset.asset.modalService}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-[#f5f5f7]/80">
+                    {selectedAsset.asset.modalDesc}
+                  </p>
+                </div>
+
+                {selectedAsset.asset.modalHighlight && (
+                  <div
+                    className="rounded-xl border p-4 text-center"
+                    style={{
+                      borderColor: `${ACCENT_COLORS[selectedAsset.colorIndex]}30`,
+                      background: `${ACCENT_COLORS[selectedAsset.colorIndex]}08`,
+                    }}
+                  >
+                    <p
+                      className="text-sm font-semibold"
+                      style={{ color: ACCENT_COLORS[selectedAsset.colorIndex] }}
+                    >
+                      {selectedAsset.asset.modalHighlight}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </SlideModal>
+        </>
       ) : (
         <motion.div
           variants={staggerContainer(0.1)}
@@ -105,7 +171,7 @@ export default function StrategicAssetsSlide({ slide }: { slide: Slide }) {
             variants={fadeUpItem}
             className="text-center text-xs font-bold text-[#6AE4FF] uppercase tracking-wider mb-2"
           >
-            Cost Optimization — Strategic Shift
+            Cost Optimization -- Strategic Shift
           </motion.div>
 
           <motion.div
@@ -140,7 +206,7 @@ export default function StrategicAssetsSlide({ slide }: { slide: Slide }) {
           >
             <span className="text-sm">⚡</span>
             <span className="text-xs font-semibold text-[#30E7A9]">
-              Scale-out Ready — 300만 건 이하 데이터: 통합형 인프라로 관리 효율 극대화
+              Scale-out Ready -- 300만 건 이하 데이터: 통합형 인프라로 관리 효율 극대화
             </span>
           </motion.div>
         </motion.div>

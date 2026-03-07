@@ -22,6 +22,7 @@ interface PipelineStep {
 export default function VisionFlowSlide({ slide }: { slide: Slide }) {
   const { audience } = useAudience();
   const content = slide.content as {
+    investorOpening?: string;
     investorMessage: string;
     flow: { left: FlowSide; center: string; right: FlowSide };
     developerTitle: string;
@@ -49,6 +50,15 @@ export default function VisionFlowSlide({ slide }: { slide: Slide }) {
           viewport={VP_DEFAULT}
           className="flex flex-col items-center gap-8 max-w-4xl"
         >
+          {content.investorOpening && (
+            <motion.p
+              variants={fadeUpItem}
+              className="text-center text-base text-[#86868b] max-w-2xl"
+            >
+              {content.investorOpening}
+            </motion.p>
+          )}
+
           <motion.p
             variants={fadeUpItem}
             className="text-center text-xl font-semibold text-[#6AE4FF]"

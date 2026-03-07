@@ -23,37 +23,62 @@ export const finalSlides: Slide[] = [
         {
           icon: "🖥️",
           title: "Application Framework",
-          sub: "Next.js, FastAPI",
+          sub: "Interface & Logic",
           rows: [
-            { label: "FRONTEND", desc: "Next.js 14 App Router + TypeScript" },
-            { label: "BACKEND", desc: "FastAPI 0.110+ Async" },
+            {
+              label: "FRONTEND",
+              desc: "Next.js (App Router), TypeScript, Tailwind CSS",
+            },
+            { label: "BACKEND", desc: "FastAPI (Python), SQLAlchemy" },
           ],
         },
         {
           icon: "🧠",
           title: "AI & NLP Pipeline",
-          sub: "LangGraph, RAG, MeCab",
+          sub: "Intelligence",
           rows: [
-            { label: "ORCHESTRATOR", desc: "LangGraph Multi-Agent (8 agents)" },
-            { label: "SEARCH", desc: "Hybrid RAG + bge-reranker" },
+            {
+              label: "ORCHESTRATION",
+              desc: "LangGraph 멀티에이전트 기반 단계적 법률 추론",
+            },
+            {
+              label: "SEARCH",
+              desc: "RAG (벡터 + BM25 하이브리드) 검색 정확도 극대화",
+            },
+            {
+              label: "PRECISION",
+              desc: "MeCab 법률 사전, KURE-v1, bge-reranker-v2-m3-ko",
+            },
           ],
         },
         {
-          icon: "💾",
+          icon: "🗄️",
           title: "Data Engine",
-          sub: "PostgreSQL, LanceDB",
+          sub: "Storage & Indexing",
           rows: [
-            { label: "RELATIONAL", desc: "PostgreSQL 17 + MeCab FTS" },
-            { label: "VECTOR", desc: "LanceDB IVF_FLAT (100% Recall)" },
+            {
+              label: "RELATIONAL",
+              desc: "PostgreSQL 17 (관계형 + BM25 index + 그래프 쿼리)",
+            },
+            {
+              label: "VECTOR DB",
+              desc: "LanceDB (240만 건 법률 데이터, 656K+ 벡터)",
+            },
           ],
         },
         {
           icon: "⚡",
           title: "Infra & Optimization",
-          sub: "Docker, ONNX",
+          sub: "Performance",
           rows: [
-            { label: "RUNTIME", desc: "ONNX Runtime INT8 (6.88x Speed)" },
-            { label: "DEPLOY", desc: "Docker Compose + AWS EC2" },
+            {
+              label: "DEPLOY",
+              desc: "Docker Compose 기반 컨테이너 오케스트레이션",
+            },
+            {
+              label: "EFFICIENCY",
+              desc: "ONNX 최적화 — 추론 속도 및 지연 시간 최소화",
+            },
           ],
         },
       ],
@@ -153,17 +178,21 @@ export const finalSlides: Slide[] = [
     layout: "vision-flow",
     audience: "both",
     content: {
+      investorOpening:
+        "세간에서는 AI 때문에 법조계가 죽는다고 말합니다. 하지만 '법률 대통령'의 철학은 정반대입니다.",
       investorMessage:
-        "파이를 나누는 것이 아니라, 파이 자체를 키우는 혁명",
+        "파이를 나누는 것이 아니라, 파이 자체를 키우는 혁명.",
       flow: {
         left: {
           label: "일반인",
-          description: "법률 문턱이 낮아져 새로운 수요 창출",
+          description:
+            "일상적인 대화만으로 복잡한 법적 상황을 논리적인 '사건 케이스'로 구조화받습니다.",
         },
         center: "구조화된 요약본 전달",
         right: {
           label: "변호사",
-          description: "준비된 고객으로 수임 효율 극대화",
+          description:
+            "상담과 사건 파악에 드는 막대한 시간과 비용을 획기적으로 줄이고, 더 낮은 수임료로 더 많은 고객의 사건을 신속하게 처리하여 수익성을 극대화할 수 있습니다.",
         },
       },
       developerTitle: "Hybrid RAG Pipeline",
@@ -692,63 +721,65 @@ export const finalSlides: Slide[] = [
     layout: "dual-track",
     audience: "investor",
     content: {
+      slogan:
+        "From Problem to Victory — 일반인에게는 '길'을, 변호사에게는 '전략'을 제시합니다.",
       tracks: [
         {
-          role: "시민",
+          role: "Quick Solution",
+          subtitle: "일반인: 막막한 법률 고민의 해결사",
           icon: "👤",
           color: "#30E7A9",
           steps: [
             {
               num: "STEP 1",
-              name: "AI 법률 상담",
-              desc: "일상 언어로 법률 질문 → AI가 관련 판례·법령 기반으로 쉽게 설명",
-              visual: "통합 AI 채팅, 법률 뉴스, 법령 체계도",
+              name: "지능형 문답 (Intake)",
+              desc: "평소 쓰는 말투로 질문하면, AI가 핵심 쟁점을 놓치지 않도록 추가 질문을 던지며 상황을 구체화합니다.",
+              visual: "카카오톡처럼 편한 챗봇 UI",
             },
             {
               num: "STEP 2",
-              name: "사건 정리 & 증거 체크",
-              desc: "AI가 사건 흐름을 정리하고 필요한 증거·서류를 체크리스트로 안내",
-              visual: "스토리보드, 소액소송 4단계 위자드",
-              badge: "Only 시민",
+              name: "사건 요약 (Summary)",
+              desc: "흩어진 대화 내용을 '변호사가 즉시 검토 가능한 표준 사건 요지서' 형식으로 자동 구조화합니다.",
+              visual: "사건 개요 / 일시 / 장소 / 쟁점 정리 보고서",
             },
             {
               num: "STEP 3",
-              name: "최적 변호사 매칭",
-              desc: "사건 유형·지역 기반으로 최적 변호사 자동 추천 및 상담 예약",
-              visual: "주변 변호사 찾기(하버사인 거리)",
-              badge: "Only 시민",
+              name: "최적 매칭 (Matching)",
+              desc: "분석된 사건의 전문 분야와 지역 데이터를 기반으로, 가장 신뢰할 수 있는 주변 변호사를 추천받습니다.",
+              visual: "위치 기반 변호사 거리/평점 지도 Pin UI",
             },
           ],
         },
         {
-          role: "변호사",
+          role: "Strategic Workspace",
+          subtitle: "변호사: 압도적 효율의 전략 참모",
           icon: "⚖️",
           color: "#6AE4FF",
           steps: [
             {
               num: "STEP 1",
-              name: "전문 법률 리서치",
-              desc: "복잡한 쟁점 분석, 유사 판례 비교, 법령 교차 검토를 AI가 병렬 처리",
-              visual: "통합 AI 채팅, 판례 검색(Hybrid RAG)",
+              name: "시각적 타임라인 (Storyboard)",
+              desc: "증거와 진술을 분석하여, 사건 흐름을 웹툰형 스토리보드로 시각화해 한눈에 파악합니다.",
+              visual: "웹툰 형식 스토리보드 + 증거 태그",
+              badge: "ONLY IN 법률 대통령",
             },
             {
               num: "STEP 2",
-              name: "모의 재판 & 전략 수립",
-              desc: "AI 판사와 상대측 AI로 변론 시뮬레이션 → 약점 보완 & 승소 전략",
-              visual: "모의 법정, 콘텐츠 마케팅",
-              badge: "Only 변호사",
+              name: "법리 고도화 (Research)",
+              desc: "방대한 DB에서 해당 사건과 가장 유사한 '필승 판례'와 '최신 법령'을 추출하여 빈틈없는 논리를 구축합니다.",
+              visual: "AI 기각 확률 분석 + 하이라이트 검색 엔진",
             },
             {
               num: "STEP 3",
-              name: "비즈니스 인텔리전스",
-              desc: "지역별 변호사 밀도·수요 분석으로 개업지 추천 & 블루오션 발굴",
-              visual: "변호사 통계, 워크스페이스",
-              badge: "Only 변호사",
+              name: "실전 리허설 (Mock Court)",
+              desc: "AI가 생성한 시나리오를 바탕으로 모의 법정을 진행하여, 실제 재판에서의 변론 성공률을 극대화합니다.",
+              visual: "판사석/검사석 실시간 변론 대시보드",
+              badge: "ONLY IN 법률 대통령",
             },
           ],
         },
       ],
-      centerFlow: ["상담", "준비", "매칭/실행"],
+      centerFlow: ["Input", "Process", "Output"],
     },
     speaker_notes:
       "3단계 병렬 플로우. 시민과 변호사 각각의 여정을 동시에 보여줌.",
@@ -1181,7 +1212,7 @@ SELECT * FROM law_tree ORDER BY depth;`,
         },
       ],
       metrics: [
-        { value: "5,555", unit: "건", label: "법령 체계도" },
+        { value: "5,548", unit: "건", label: "법령 체계도" },
         { value: "< 50", unit: "ms", label: "응답 시간" },
         { value: "0", unit: "원", label: "추가 인프라 비용" },
       ],
@@ -1318,7 +1349,7 @@ SELECT * FROM law_tree ORDER BY depth;`,
         },
         {
           label: "예비비 현황",
-          detail: "API 호출 + AWS 후청부 예상",
+          detail: "API 호출 + AWS 후청구 예상",
           amount: "30,000원",
         },
         {
@@ -1333,7 +1364,7 @@ SELECT * FROM law_tree ORDER BY depth;`,
         {
           category: "추가 정산 예정 (B)",
           amount: "~30,000원",
-          note: "API 호출 및 AWS 후청부",
+          note: "API 호출 및 AWS 후청구",
         },
         {
           category: "최종 예상 지출 (A+B)",
@@ -1401,10 +1432,10 @@ SELECT * FROM law_tree ORDER BY depth;`,
         {
           name: "홍서연",
           role: "THE ANALYST",
-          title: "Frontend & Data Analyst",
-          description: "데이터를 시각화하고 사용자 경험을 설계",
-          quote: "데이터의 목소리를 시각으로 전달하는 분석가",
-          bio: "프론트엔드 개발과 데이터 분석을 겸하며, 복잡한 법률 데이터를 직관적인 시각화로 변환했습니다. 사용자 중심의 인터페이스 설계로 서비스의 접근성을 높였습니다.",
+          title: "AI Engineer & Data Analyst",
+          description: "신뢰할 수 있는 법률 지능과 분석 엔진의 완성",
+          quote: "지식의 깊이와 논리를 더한 지능의 핵심",
+          bio: "AI가 팩트에 기반해 답할 수 있도록 초정밀 RAG 파이프라인을 구축했습니다. 흩어진 법률 데이터를 유의미한 분석 결과로 전환하여 서비스에 '전문가의 지능'을 불어넣었습니다.",
           gradient: ["#bf5af2", "#2997ff"],
           emoji: "🧑‍🔬",
         },

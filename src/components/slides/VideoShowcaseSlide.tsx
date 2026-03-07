@@ -23,6 +23,7 @@ interface Category {
 export default function VideoShowcaseSlide({ slide }: { slide: Slide }) {
   const { audience } = useAudience();
   const content = slide.content as {
+    demoVideo?: string;
     categories: Category[];
     developerTitle: string;
     developerSubtitle: string;
@@ -47,20 +48,46 @@ export default function VideoShowcaseSlide({ slide }: { slide: Slide }) {
   const category = content.categories[activeCategory];
 
   return (
-    <div className="flex flex-col items-center py-4">
+    <div className="relative flex flex-col items-center py-4">
+      <div
+        className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-[0.05] pointer-events-none"
+        style={{ backgroundImage: `url(${assetPath("/images/final/A06_DEMO_STAGE_BG.png")})` }}
+      />
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={VP_DEFAULT}
-        className="mb-6 text-center text-3xl font-bold text-[#f5f5f7]"
+        className="relative mb-6 text-center text-3xl font-bold text-[#f5f5f7]"
       >
         {audience === "developer" ? content.developerTitle : slide.title}
       </motion.h2>
 
       {audience === "investor" ? (
-        <>
+        <div className="relative flex flex-col items-center gap-8 w-full max-w-5xl">
+          {/* Full demo video */}
+          {content.demoVideo && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VP_DEFAULT}
+              className="w-full max-w-[960px]"
+            >
+              <div className="overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl">
+                <video
+                  src={assetPath(content.demoVideo)}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full"
+                >
+                  브라우저가 동영상 재생을 지원하지 않습니다.
+                </video>
+              </div>
+            </motion.div>
+          )}
+
           {/* Category tabs */}
-          <div className="mb-6 flex gap-2">
+          <div className="flex gap-2">
             {content.categories.map((cat, i) => (
               <button
                 key={i}
@@ -81,7 +108,7 @@ export default function VideoShowcaseSlide({ slide }: { slide: Slide }) {
           {/* Video grid */}
           <motion.div
             key={activeCategory}
-            className="grid grid-cols-4 gap-3 max-w-5xl w-full"
+            className="grid grid-cols-4 gap-3 w-full"
             variants={staggerContainer(0.06)}
             initial="hidden"
             animate="visible"
@@ -120,14 +147,14 @@ export default function VideoShowcaseSlide({ slide }: { slide: Slide }) {
             title={activeTitle}
             onClose={() => setActiveVideo(null)}
           />
-        </>
+        </div>
       ) : (
         <motion.div
           variants={staggerContainer(0.12)}
           initial="hidden"
           whileInView="visible"
           viewport={VP_DEFAULT}
-          className="flex flex-col gap-6 max-w-3xl w-full"
+          className="relative flex flex-col gap-6 max-w-3xl w-full"
         >
           <motion.p
             variants={fadeUpItem}

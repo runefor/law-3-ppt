@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { Slide } from "@/data/slides";
 import { VP_DEFAULT, staggerContainer, fadeUpItem } from "@/lib/animations";
+import TypewriterText from "@/components/TypewriterText";
 
 interface PipelineStep {
   icon: string;
@@ -51,7 +52,7 @@ export default function RagPipelineSlide({ slide }: { slide: Slide }) {
         transition={{ delay: 0.2 }}
         className="mb-8 max-w-3xl text-center text-xs italic text-[#6AE4FF]"
       >
-        {content.slogan}
+        <TypewriterText text={content.slogan} speed={35} delay={500} />
       </motion.p>
 
       {/* 5-step pipeline */}

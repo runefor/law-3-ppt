@@ -14,6 +14,7 @@ interface TrackStep {
 
 interface Track {
   role: string;
+  subtitle?: string;
   icon: string;
   color: string;
   steps: TrackStep[];
@@ -21,6 +22,7 @@ interface Track {
 
 export default function DualTrackSlide({ slide }: { slide: Slide }) {
   const content = slide.content as {
+    slogan?: string;
     tracks: Track[];
     centerFlow: string[];
   };
@@ -45,6 +47,16 @@ export default function DualTrackSlide({ slide }: { slide: Slide }) {
           {slide.subtitle}
         </motion.p>
       )}
+      {content.slogan && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={VP_DEFAULT}
+          className="mb-6 max-w-3xl text-center text-xs italic text-[#6AE4FF]"
+        >
+          {content.slogan}
+        </motion.p>
+      )}
 
       <div className="grid grid-cols-[1fr_auto_1fr] gap-0 max-w-5xl w-full items-stretch">
         {content.tracks.map((track, ti) => (
@@ -67,9 +79,14 @@ export default function DualTrackSlide({ slide }: { slide: Slide }) {
               >
                 {track.icon}
               </div>
-              <span className="text-sm font-bold" style={{ color: track.color }}>
-                {track.role}
-              </span>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold" style={{ color: track.color }}>
+                  {track.role}
+                </span>
+                {track.subtitle && (
+                  <span className="text-[10px] text-[#86868b]">{track.subtitle}</span>
+                )}
+              </div>
             </motion.div>
 
             {/* Steps */}
