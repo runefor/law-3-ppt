@@ -1,6 +1,5 @@
 "use client";
 
-import { finalSlides } from "@/data/finalSlides";
 import type { Slide } from "@/data/slides";
 import { AudienceProvider, useAudience } from "@/contexts/AudienceContext";
 import ScrollSection from "./ScrollSection";
@@ -47,6 +46,17 @@ import CostManagementSlide from "./slides/CostManagementSlide";
 import TeamIntroSlide from "./slides/TeamIntroSlide";
 import RetrospectiveSlide from "./slides/RetrospectiveSlide";
 import StrategyRadialSlide from "./slides/StrategyRadialSlide";
+
+interface NavSection {
+  label: string;
+  slideId: number;
+}
+
+interface ScrollPageProps {
+  slides: Slide[];
+  navSections: NavSection[];
+  useAudienceFilter?: boolean;
+}
 
 const layoutComponents: Record<
   string,
@@ -100,20 +110,10 @@ const fullHeightLayouts = new Set([
   "live-demo",
 ]);
 
-const FINAL_NAV_SECTIONS = [
-  { label: "문제", slideId: 2 },
-  { label: "솔루션", slideId: 4 },
-  { label: "데모", slideId: 8 },
-  { label: "기술", slideId: 9 },
-  { label: "데이터", slideId: 15 },
-  { label: "팀", slideId: 16 },
-  { label: "전략", slideId: 19 },
-];
-
-function SlideRenderer() {
+function AudienceSlideRenderer({ slides: slideData }: { slides: Slide[] }) {
   const { audience } = useAudience();
 
-  const filteredSlides = finalSlides.filter((slide) => {
+  const filteredSlides = slideData.filter((slide) => {
     const a = slide.audience || "both";
     if (a === "both") return true;
     return a === audience;
@@ -139,13 +139,46 @@ function SlideRenderer() {
   );
 }
 
-export default function ScrollPage() {
+function PlainSlideRenderer({ slides: slideData }: { slides: Slide[] }) {
   return (
-    <AudienceProvider>
-      <div className="relative bg-black h-screen overflow-y-auto snap-y snap-mandatory">
-        <StickyNav sections={FINAL_NAV_SECTIONS} />
-        <SlideRenderer />
-      </div>
-    </AudienceProvider>
+    <>
+      {slideData.map((slide) => {
+        const SlideComponent = layoutComponents[slide.layout];
+        if (!SlideComponent) return null;
+
+        return (
+          <ScrollSection
+            key={slide.id}
+            id={`slide-${slide.id}`}
+            fullHeight={fullHeightLayouts.has(slide.layout)}
+          >
+            <SlideComponent slide={slide} />
+          </ScrollSection>
+        );
+      })}
+    </>
   );
+}
+
+export default function ScrollPage({
+  slides: slideData,
+  navSections,
+  useAudienceFilter = false,
+}: ScrollPageProps) {
+  const content = (
+    <div data-scroll-container className="relative bg-black h-screen overflow-y-auto snap-y snap-mandatory">
+      <StickyNav sections={navSections} showAudienceToggle={useAudienceFilter} />
+      {useAudienceFilter ? (
+        <AudienceSlideRenderer slides={slideData} />
+      ) : (
+        <PlainSlideRenderer slides={slideData} />
+      )}
+    </div>
+  );
+
+  if (useAudienceFilter) {
+    return <AudienceProvider>{content}</AudienceProvider>;
+  }
+
+  return content;
 }

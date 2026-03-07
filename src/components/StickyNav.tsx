@@ -10,6 +10,7 @@ interface NavSection {
 
 interface StickyNavProps {
   sections?: NavSection[];
+  showAudienceToggle?: boolean;
 }
 
 const DEFAULT_SECTIONS: NavSection[] = [
@@ -22,20 +23,26 @@ const DEFAULT_SECTIONS: NavSection[] = [
   { label: "계획", slideId: 23 },
 ];
 
-export default function StickyNav({ sections }: StickyNavProps) {
+export default function StickyNav({ sections, showAudienceToggle = false }: StickyNavProps) {
   const navSections = sections || DEFAULT_SECTIONS;
   const [visible, setVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { audience, setAudience } = useAudience();
 
-  const handleScroll = useCallback(() => {
-    setVisible(window.scrollY > window.innerHeight * 0.5);
-  }, []);
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    const scrollContainer = document.querySelector("[data-scroll-container]");
+    const target = scrollContainer || window;
+
+    const handleScroll = () => {
+      const scrollTop = scrollContainer
+        ? scrollContainer.scrollTop
+        : window.scrollY;
+      setVisible(scrollTop > window.innerHeight * 0.5);
+    };
+
+    target.addEventListener("scroll", handleScroll, { passive: true });
+    return () => target.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const sectionEls = navSections
@@ -78,7 +85,10 @@ export default function StickyNav({ sections }: StickyNavProps) {
       <div className="border-b border-white/10 bg-black/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => {
+              const c = document.querySelector("[data-scroll-container]");
+              (c || window).scrollTo({ top: 0, behavior: "smooth" });
+            }}
             className="text-sm font-semibold text-[#f5f5f7] transition-opacity hover:opacity-70"
           >
             Law-3
@@ -98,29 +108,30 @@ export default function StickyNav({ sections }: StickyNavProps) {
               </button>
             ))}
 
-            {/* Audience toggle */}
-            <div className="ml-4 flex rounded-full bg-white/10 p-1 backdrop-blur-lg border border-white/15">
-              <button
-                onClick={() => setAudience("investor")}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                  audience === "investor"
-                    ? "bg-[#0071E3] text-white"
-                    : "text-[#86868b]"
-                }`}
-              >
-                투자자
-              </button>
-              <button
-                onClick={() => setAudience("developer")}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                  audience === "developer"
-                    ? "bg-[#0071E3] text-white"
-                    : "text-[#86868b]"
-                }`}
-              >
-                개발자
-              </button>
-            </div>
+            {showAudienceToggle && (
+              <div className="ml-4 flex rounded-full bg-white/10 p-1 backdrop-blur-lg border border-white/15">
+                <button
+                  onClick={() => setAudience("investor")}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                    audience === "investor"
+                      ? "bg-[#0071E3] text-white"
+                      : "text-[#86868b]"
+                  }`}
+                >
+                  투자자
+                </button>
+                <button
+                  onClick={() => setAudience("developer")}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                    audience === "developer"
+                      ? "bg-[#0071E3] text-white"
+                      : "text-[#86868b]"
+                  }`}
+                >
+                  개발자
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
