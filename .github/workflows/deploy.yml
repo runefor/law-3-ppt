@@ -29,6 +29,7 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /law-3-ppt/midterm
+          NEXT_PUBLIC_PRESENTATION_ENTRY: midterm
           NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
@@ -49,6 +50,7 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /law-3-ppt/final
+          NEXT_PUBLIC_PRESENTATION_ENTRY: final
           NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
       - uses: actions/upload-artifact@v4
         with:
