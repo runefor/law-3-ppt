@@ -46,6 +46,8 @@ next-env.d.ts
 
 .bkit/
 final-presentation/
+!public/final-presentation/
+!public/final-presentation/**
 docs/.bkit-*.json
 docs/.pdca-status.json
 *:Zone.Identifier

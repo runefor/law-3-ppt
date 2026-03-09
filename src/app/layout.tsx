@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Law-3 AI 법률 플랫폼",
@@ -21,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="dark">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className="antialiased">
         {children}
         {process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY && (
           <Script
